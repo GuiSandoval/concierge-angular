@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="card shadow-lg">
+    <div class="card-header card-header-default">
+      <h4 class="card-title">Tabela de Visitas</h4>
+      <p class="card-category">Pesquisar Visita...</p>
+    </div>
+    
+    <div class="card-content table-responsive table-full-width">
+      <table class="table">
+        <thead class="text-primary">
+          <th>Visitante</th>
+          <th>Visitado</th>
+          <th>Local</th>
+          <th>Data</th>
+        </thead>
+        <tbody>
+          <tr class="ltVisit" *ngFor="let visita of visitas; let i = index" data-toggle="modal" attr.data-target="#exampleModal-{{i}}" style="cursor: pointer;" >
+            <td>{{visita.nome}}</td>
+            <td>{{visita.desc_lotacao}}</td>
+            <td>{{visita.nome_serv}}</td>
+            <td>{{visita.data_entrada}} - {{visita.hora_entrada}}</td>
+
+            <div class="modal fade" id="exampleModal-{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Visita n°{{i + 1}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- <p>id_visita: {{visita.id_visita}}</p> -->
+                    <h4>Dados da Visita</h4>
+                    <hr>
+                    <h5>Visitante</h5>
+                    <hr>
+                    <!-- <p>id_lotacao_visita: {{visita.id_lotacao_visita}}</p> -->
+                    <p>Nome: {{visita.nome | uppercase }}</p>
+                    <p>CPF: {{visita.id_cpf}}</p>
+                    <hr>
+                    <h5>Visita</h5>
+                    <hr>
+                    <p>Local: {{visita.local_lotacao}}</p>
+                    <p>Lotação: {{visita.sigla_lotacao}} - {{visita.desc_lotacao}}</p>
+                    <p>Data e Hora: {{visita.hora_entrada}} {{visita.data_entrada}} </p>
+                    <!-- <p>Hora da Entrada: </p> -->
+                    <p>Nome Visitado: {{visita.nome_serv}}</p>
+                    <p>CPF Visitado: {{visita.id_cpf_visitado}}</p>
+                    <!-- <p>txt_visitado: {{visita.txt_visitado}}</p> -->
+                    <!-- <p>id_cartao: {{visita.id_cartao}}</p> -->
+                    <!-- <p>sigla_lotacao: {{visita.sigla_lotacao}}</p> -->
+                    <!-- <p>nome: {{visita.nome}}</p> -->
+                    <p>Observações: {{visita.txt_observacoes}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button> -->
+                    <button type="button" class="btn btn-primary">Fechar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,214 @@
+<!-- 
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let visitante of visitantes|filter:term | slice:0:50 ; " id="lista-visitantes">
+            <th scope="row">{{visitante.id_cpf}}</th>
+            <td>{{visitante.nome  | uppercase}}</td>
+            <td><button type="button" class="btn btn-primary btn-sm-ml-1" routerLink="/visitante/editar/{{visitante.id_cpf}}">Editar</button></td> 
+            <td><i class="material-icons">menu</i></td> 
+            <td>
+                <span class="dropup">
+                    <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v" ></i></a>
+                    <button href="#" class="dropdown-toggle btn btn-primary btn-round" data-toggle="dropdown">Dropup <b class="caret"></b></button> 
+                    <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
+                        <li class="dropdown-header">Dropdown header</li>
+                        <li><a routerLink="/visitante/editar/{{visitante.id_cpf}}">Editar</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </span>
+              <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v" ></i></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" routerLink="/visitante/editar/{{visitante.id_cpf}}">Editar</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div> 
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+
+
+
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+######################################################################################################################################################
+
+
+<br>
+<br>
+<div class="container-fl mt-5">
+
+  <div class="row">
+
+    <div class="col-md-12 mx-auto">
+      <!-- <app-error-msg></app-error-msg> -->
+      <div class="text-right">
+        <button type="button" class="btn btn-success btn-sm-ml-1" routerLink="/visitante/criar">Novo Visitante</button>
+      </div>
+      <div class="text-center" *ngIf="!existeVisitantes()">
+        Nenhum Visitante Cadastrado.
+      </div>
+    </div>
+
+    <div class="col-md-12 mx-auto">
+      <!-- <app-error-msg></app-error-msg> -->
+      <div class="text-right">
+        <button type="button" class="btn btn-dark btn-sm-ml-1" routerLink="/visitante/criar">Black List</button>
+      </div>
+    </div>
+    <div class="offset-md-2 col-md-8">
+      <form id="filter" class="">
+        <mat-form-field class="example-full-width">
+          <!-- <input [(ngModel)]="term" matInput type="text" placeholder="With Floating Label"> -->
+          <input [(ngModel)]="term" name="something" matInput type="text" placeholder="Pesquisar Visitante...">
+        </mat-form-field>
+        <!-- <label> Pesquisa Pelo cpf ou nome</label>
+          <input [(ngModel)]="term" name="something"> -->
+
+        <!-- <input type="text" (input)="tId = $event.target.value">
+          <h1 *ngIf="tId == 5">Deu certo</h1> -->
+        <!-- <input type="text" [(ngModel)]="term" /> -->
+      </form>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <!-- <div class="col-md-8 mx-auto" style="width: 200px; height: 1000px; overflow: auto;" id="example"> -->
+    <div class="col-md-8 mx-auto ps-child" style="width: 200px; height: 1000px; overflow: auto;" id="example">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Table Title</h4>
+          <p class="card-category">Here is a subtitle for this table</p>
+        </div>
+        <div class="card-content table-responsive table-full-width">
+          <table class="table">
+            <thead class="text-danger">
+              <th>CPF</th>
+              <th>Nome</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let visitante of visitantes|filter:term | slice:0:50 ; " id="lista-visitantes">
+                <td>{{visitante.id_cpf}}</td>
+                <td>{{visitante.nome  | uppercase}}</td>
+                <td><span class="dropup">
+                    <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                        class="fas fa-ellipsis-v"></i></a>
+                    <!-- <button href="#" class="dropdown-toggle btn btn-primary btn-round" data-toggle="dropdown">Dropup <b class="caret"></b></button>  -->
+                    <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
+                      <li class="dropdown-header">Dropdown header</li>
+                      <li><a routerLink="/visitante/editar/{{visitante.id_cpf}}">Editar</a></li>
+                      <li><a href="#">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">One more separated link</a></li>
+                    </ul>
+                  </span>
+                  <!-- <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v" ></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" routerLink="/visitante/editar/{{visitante.id_cpf}}">Editar</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>  -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var ajax = "";
+  $(function () {
+    retorna_tweets(1);
+    $('body').data('pagina', 1);
+    inicializa_scroll();
+  });
+
+  function inicializa_scroll() {
+    $(window).scroll(function () {
+      if (($(window).scrollTop() + $(window).height() + 20) >= $(document).height()) {
+        $(window).unbind('scroll');
+        ajax.abort();
+        retorna_tweets($('body').data('pagina'));
+      }
+    });
+  }
+
+  $("#example").bind("mousewheel", function (ev, delta) {
+    var scrollTop = $(this).scrollTop();
+    $(this).scrollTop(scrollTop - Math.round(delta));
+  });
+</script>
+
+
+
+
+
+
+  <form>
+    <div class="cadastroVisita rounded p-3">
+      <div class="row">
+        <div class="col-md-5">
+          <!-- {{visitantes.length}} -->
+          <input [(ngModel)]="term" class="custom-select rounded" list='teste' [ngModelOptions]="{standalone: true}">
+          <!-- {{term.length}} -->
+          <div *ngIf="!term; else elseBlock">psequisa está indefinida</div>
+          <ng-template #elseBlock>
+            <select class="custom-select mt-2" id="inputGroupSelect01">
+              <option selected>Choose...</option>
+              <option *ngFor="let visitante of visitantes| filter:term | slice:0:20;  let i = index;">
+                {{visitante.nome}}</option>
+            </select>
+          </ng-template>
+        </div>
+        <div class="col-md-1 text-center">
+          <hr>
+        </div>
+        <div class="col-md-5">
+
+          <!-- {{visitantes.length}} -->
+          <input [(ngModel)]="term2" class="custom-select rounded" list='teste' [ngModelOptions]="{standalone: true}">
+          <!-- {{term2.length}} -->
+          <div *ngIf="!term2; else elseBlock2">psequisa está indefinida</div>
+          <ng-template #elseBlock2>
+            <select class="custom-select mt-2" id="inputGroupSelect02">
+              <option selected>Choose...</option>
+              <option *ngFor="let visitante of visitantes| filter:term2 | slice:0:20;  let i = index;">
+                {{visitante.nome}}</option>
+            </select>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <!-- <input [(ngModel)]="term" class="custom-select rounded"  [ngModelOptions]="{standalone: true}">
+          <datalist class="list-group" id="brow">
+            <ng-container *ngFor="let visitante of visitantes| filter:term | slice:0:50;  let i = index;" >  
+                <option value="{{visitante.nome}}">
+            </ng-container> -->
+    <!-- <option value="Firefox">
+            <option value="Chrome">
+            <option value="Opera">
+            <option value="Safari"> 
+          </datalist> -->
+  </form>

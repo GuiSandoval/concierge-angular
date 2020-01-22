@@ -1,0 +1,66 @@
+<div class="container">
+  <form class="form-visitado" [formGroup]="formulario" >
+    <div class="row">
+      <div class=" col-md-5">
+        <mat-form-field class="example-full-width">
+          <input type="text" [(ngModel)]="term3" placeholder="Visitante" aria-label="Number2" matInput
+            [formControl]="myControl" formControlName="id_cpf" [matAutocomplete]="auto2">
+          <!-- <input type="hidden"  name="teste23" [value]="2341423" [(ngModel)]="teste23" formControlName="teste23" #teste> -->
+          <mat-autocomplete #auto2="matAutocomplete">
+            <mat-option *ngFor="let visitante of visitantes| filter:term3 | slice:0:20;  let i = index;"
+              [value]="visitante.id_cpf" >
+              {{visitante.nome}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 text-center my-auto">
+        <i class="material-icons">
+          arrow_forward
+        </i>
+      </div>
+      <div class=" col-md-5">
+        <mat-form-field class="example-full-width">
+          <input type="text" [(ngModel)]="term43" placeholder="Visitado" aria-label="Number" matInput
+            [formControl]="myControl2" [matAutocomplete]="auto" formControlName="id_cpf_visitado">
+          <!-- <input type="hidden" id="custId" name="custId" value="3487" [(ngModel)]="esc"> -->
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let servidor of servidores| filter3:term43 | slice:0:20;  let i = index;"
+              [value]="servidor.id_cpf" >
+              {{servidor.nome_serv}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+          <div id="minhaDiv" style="display:none">
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Descrição" [(ngModel)]="descricao" formControlName="txt_observacoes"></textarea>
+            </mat-form-field>
+          </div>
+      </div>
+      <div class="offset-11 col-md-1 text-right">
+        <button type="button" class=" ml-auto btn-toggle" data-element="#minhaDiv">+</button>
+      </div>
+    </div>
+  </form>
+
+  {{term3}}
+  {{term43}}
+  <!-- {{teste.value}} -->
+  <!-- <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let visitante of visitantes " [value]="option">
+          {{visitante.nome}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form> -->
+
+
+  <!-- {state: {name: 'New York', abbrev: 'NY'} } -->
+  <app-form-debug [form]="formulario"></app-form-debug>
+
+</div>

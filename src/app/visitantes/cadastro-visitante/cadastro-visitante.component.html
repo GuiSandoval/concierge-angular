@@ -1,0 +1,129 @@
+<div class="container mt-5 rounded py-3" style="background-color: white;">
+  <form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <div class="col-sm-12">
+          <label for="nome" class="control-label text-dark">Nome</label>
+        </div>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" formControlName="nome" id="nome" placeholder="Nome Completo">
+        </div>
+      </div>
+
+      <!--div class="form-group" [ngClass]="aplicaCssErro('nome')">
+    <div class="col-sm-12">
+      <label for="nome" class="control-label">Nome</label>
+    </div>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" formControlName="nome" id="nome" placeholder="Nome">
+      <app-error-msg [control]="formulario.get('nome')" label="Nome"></app-error-msg>
+    </div>
+  </div -->
+
+      <div class="form-group col-md-4">
+        <div class="col-sm-12">
+          <label for="cpf" class="control-label text-dark">CPF</label>
+        </div>
+        <div class="col-sm-12">
+          <input class="form-control" id="cpf" formControlName="id_cpf" maxlength="11" placeholder="XXX.XXX.XXX-XX">
+          <!-- <input id="uintTextBox"> -->
+          <!-- <input type="text" class="form-control" id="cpf" formControlName="id_cpf" maxlength="11" placeholder="XXX.XXX.XXX-XX"> -->
+          <!--app-campo-control-erro [mostrarErro]="verificaValidTouched('email')" msgErro="Email é obrigatório.">
+      </app-campo-control-erro>
+      <app-campo-control-erro [mostrarErro]="verificaEmailInvalido()" msgErro="Email inválido.">
+      </app-campo-control-erro -->
+          <!-- <app-campo-control-erro [mostrarErro]="formulario.get('email').status === 'PENDING'"
+        msgErro="Validando email...">
+      </app-campo-control-erro>
+      <app-campo-control-erro [mostrarErro]="formulario.get('email').status === 'VALID'"
+        msgErro="Email válido!">
+      </app-campo-control-erro> -->
+          <!--app-campo-control-erro [mostrarErro]="formulario.get('email').hasError('emailInvalido')"
+        msgErro="Email já cadastrado!">
+      </app-campo-control-erro -->
+        </div>
+      </div>
+
+        <div class="form-group col-md-3">
+          <div class="col-sm-12">
+            <label for="telefone" class="control-label text-dark">Telefone</label>
+          </div>
+          <div class="col-sm-12">
+            <input class="form-control" id="telefone" formControlName="telefone" maxlength="11"
+              placeholder="0000000000">
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <div class="col-sm-12">
+            <label for="ci" class="control-label text-dark">Identidade</label>
+          </div>
+          <div class="col-sm-12">
+            <input class="form-control" id="ci" formControlName="ci" maxlength="11" placeholder="0000000000">
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <div class="col-sm-12">
+            <label for="matricula" class="control-label text-dark">Matricula</label>
+          </div>
+          <div class="col-sm-12">
+            <input class="form-control" id="matricula" formControlName="matricula" maxlength="11"
+              placeholder="0000000000">
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <div class="col-sm-12">
+            <label for="cargo" class="control-label text-dark">Cargo</label>
+          </div>
+          <div class="col-sm-12">
+            <input class="form-control" id="cargo" formControlName="cargo" maxlength="11"
+              placeholder="0000000000">
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <div class="col-sm-12">
+            <label for="foto_visit" class="control-label text-dark">ESPAÇO PARA A WEBCAM</label>
+          </div>
+          <div class="col-sm-12">
+            <input class="form-control" id="foto_visit" formControlName="foto_visit" maxlength="11"
+              placeholder="0000000000">
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <div class="col-sm-12">
+            <label for="orgao_origem" class="control-label text-dark">Orgão de Origem</label>
+          </div>
+          <div class="col-sm-12">
+            <input class="form-control" id="orgao_origem" formControlName="orgao_origem" maxlength="11"
+              placeholder="0000000000">
+          </div>
+        </div>
+
+        <!-- <div class="form-group" [ngClass]="aplicaCssErro('confirmarEmail')">
+    <div class="col-sm-12">
+      <label for="confirmarEmail" class="control-label">Confirmar Email</label>
+    </div>
+    <div class="col-sm-12">
+      <input type="confirmarEmail" class="form-control" formControlName="confirmarEmail" id="confirmarEmail" placeholder="nome@email.com">
+      <app-error-msg [control]="formulario.get('confirmarEmail')" label="Confirmar Email"></app-error-msg>
+     app-campo-control-erro [mostrarErro]="formulario.get('confirmarEmail').hasError('equalsTo')"
+        msgErro="Emails não são iguais.">
+      </app-campo-control-erro 
+    </div>
+  </div> -->
+
+
+
+
+      </div>
+      <button type="submit" class="btn btn-primary ml-3">Cadastrar</button>
+      <!-- <button mat-raised-button type="submit" class="btn btn-primary ml-3" (click)="showNotification('top','right')">Cadastrar</button> -->
+      <!-- <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('top','left')">Top Left</button> -->
+
+      <!-- <button class="btn btn-default" (click)="resetar()">Cancelar</button>
+  <button class="btn btn-info" (click)="setarCargo()">Cargo</button>
+  <button class="btn btn-info" (click)="setarTecnologias()">Tecnologias</button> -->
+
+      <app-form-debug [form]="formulario"></app-form-debug>
+  </form>
+</div>
+

@@ -1,0 +1,52 @@
+<div class="bg-port">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-center">
+        <div class="card shadow-lg" style="max-width: 30rem;"> 
+          <div class="card-header">
+            <h2>Login</h2>
+            <hr>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="login()" #form="ngForm">
+              <div class="form-group">
+                <mat-form-field>
+                  <input matInput class="formLogin" placeholder="Login" [(ngModel)]="model.email" [ngModelOptions]="{standalone: true}"
+                    required>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-form-field>
+                  <input matInput class="formSenha" type="password" placeholder="Senha" [(ngModel)]="model.password"
+                    [ngModelOptions]="{standalone: true}" required>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <button type="submit" [disabled]="submitted || !form.valid" class="btn btn-primary">Logar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- <div class="form-group">
+  <button [disabled]="loading" class="btn btn-primary">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    Login
+  </button>
+  <a routerLink="/register" class="btn btn-link">Register</a>
+</div> -->
+  <!-- <form>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="username" placeholder="Login">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="password" placeholder="Senha">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary">Logar</button>
+                </div>
+              </form> -->

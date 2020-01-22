@@ -1,0 +1,228 @@
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button>
+<mat-horizontal-stepper [linear]="isLinear" #stepper> -->
+<div class="container">
+
+  <mat-horizontal-stepper linear #stepper class="shadow-lg rounded">
+    <!-- VISITANTE -->
+    <mat-step [stepControl]="form1">
+      <form [formGroup]="form1">
+        <ng-template matStepLabel>Nome do Visitante</ng-template>
+        <!-- <mat-form-field>
+        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+      </mat-form-field> -->
+        <mat-form-field class="example-full-width">
+          <input type="text" [(ngModel)]="term3" placeholder="Visitante" aria-label="Number2" matInput
+            [formControl]="myControl" formControlName="id_cpf" [matAutocomplete]="auto2" oninput="this.value = this.value.toUpperCase()">
+          <!-- <input type="hidden" formControlName="nomeTeste" value="ola"> -->
+          <!-- <input type="hidden"  name="teste23" [value]="2341423" [(ngModel)]="teste23" formControlName="teste23" #teste> -->
+          <mat-autocomplete #auto2="matAutocomplete">
+            <ng-container *ngFor="let visitante of visitantes| filter:term3 | slice:0:20;  let i = index;">
+              <mat-option [value]="visitante.nome">
+                {{visitante.id_cpf}} - {{visitante.nome}}
+                <!-- <input type="hidden" [(ngModel)]="teste444" value="ola"> -->
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+        </mat-form-field>
+        <!-- <input type="text" formControlName="nomeTeste" value="ola" > -->
+        <!-- <input type="text" #nomeTeste [value]="delivery_extry"/> -->
+        <small>*CPF, RG ou Nome Completo</small> <br>
+
+        <!-- <ng-container *ngFor="let visitante of visitantes| filter:term3 | slice:0:1;  let i = index;">
+        <pre><br>{{ visitante | json }}</pre>
+        </ng-container> -->
+        <!-- 
+      <div class="">
+        <span #cff> Teste</span>
+        {{cff.textContent}}
+      </div>
+      <div>
+        1 - {{term3}} <br>
+        2 - <br> 
+
+      </div> -->
+        <button mat-button matStepperNext>Próximo</button>
+      </form>
+    </mat-step>
+    <!-- VISITADO OU O LOCAL DE VISITA-->
+    <mat-step [stepControl]="form2">
+      <form [formGroup]="form2">
+        <ng-template matStepLabel>Irá visitar </ng-template>
+        <div class="row">
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+              <input type="text" [(ngModel)]="term4" placeholder="Visitado" aria-label="Number3" matInput
+                [formControl]="myControl2" [matAutocomplete]="auto" formControlName="secondCtrl"  (blur) = "getServInfo2()">
+              <mat-autocomplete #auto="matAutocomplete">
+                <ng-container *ngFor="let servidor of servidores| filter3:term4 | slice:0:20;  let i = index;">
+                  <mat-option [value]="servidor.nome_serv">
+                    {{servidor.nome_serv}}
+                  </mat-option>
+                </ng-container>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-md-7">
+            <mat-form-field class="example-full-width">
+              <input type="text" [(ngModel)]="term5" placeholder="Local" aria-label="Number5" matInput
+                [formControl]="myControl3" [matAutocomplete]="auto3" formControlName="id_lotacao">
+              <mat-autocomplete #auto3="matAutocomplete">
+                <ng-container *ngFor="let lotacao of lotacoes| filter4:term5 | slice:0:20;  let i = index;">
+                  <mat-option [value]="lotacao.id_lotacao">
+                    {{lotacao.sigla_lotacao}} - {{lotacao.desc_lotacao}}
+                  </mat-option>
+                </ng-container>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- <div class="row rounded" style="background-color:rgb(160, 160, 160)">
+          <div class="col-md-5">
+            <ng-container *ngFor="let servidor of servidores| filter3:term4 | slice:0:1;  let i = index;">
+              <pre><br>{{ servidor | json }}</pre>
+              </ng-container>
+          </div>
+          <div class="col-md-5">
+            <ng-container *ngFor="let lotacao of lotacoes| filter4:term5 | slice:0:1;  let i = index;">
+              <pre><br>{{ lotacao | json }}</pre>
+              </ng-container>
+          </div>
+        </div> -->
+        <!-- <mat-form-field>
+        <input matInput placeholder="Visitado" formControlName="secondCtrl" required>
+      </mat-form-field> -->
+        <div>
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button matStepperNext (click)="onSave()">Próximo</button>
+        </div>
+      </form>
+    </mat-step>
+    <!-- ULTIMA ETAPA-->
+    <mat-step>
+      <ng-template matStepLabel>Pronto</ng-template>
+
+      <div class="row">
+        <div class="col-md-12  d-flex justify-content-center">
+          <div class="card shadow-lg">
+            <form [formGroup]="formFinal">
+              <div class="card-body">
+              
+                <!-- INFORMAÇÕES DO VISITANTE -->
+                <div class="form-group row">
+                  <ng-container *ngFor="let visitante of visitantes| filter:term3 | slice:0:1; let i = index;">
+                    <div class="col-sm-6">
+                      <label for="nomeVisit">Nome do Visitante: </label>
+                      <input type="text" class="form-control rounded px-2" id="nomeVisit" [value]="visitante.nome" 
+                        readonly>
+                    </div>
+                    <div class="col-sm-3">
+                      <label for="cpfVisit">CPF do Visitante: </label>
+                      <input type="text" class="form-control rounded px-2" id="cpfVisit" [value]="visitante.id_cpf" formControlName="id_cpf"
+                        readonly>
+                    </div>
+                    <div class="col-sm-3">
+                      <label for="ciVisit">Identidade do Visitante: </label>
+                      <input type="text" class="form-control rounded px-2" id="ciVisit" [value]="visitante.ci"
+                        readonly>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- INFORMAÇÕES DO SERVIDOR -->
+                <div class="form-group row">
+                  <ng-container *ngFor="let servidor of servidores| filter3:term4 | slice:0:1;  let i = index;">
+                    <div class="col-sm-5">
+                      <label for="nomeServ">Nome do Servidor: </label>
+                      <input type="text" class="form-control rounded px-2" id="nomeServ" [value]="servidor.nome_serv" formControlName="nome_serv"
+                        readonly>
+                    </div>
+                    <div class="col-sm-3">
+                      <label for="cpfServ">CPF do Servidor: </label>
+                      <input type="text" class="form-control rounded px-2" id="cpfServ" [value]="servidor.id_cpf" formControlName="id_cpf_visitado"
+                        readonly>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="matriculaServ">Matricula: </label>
+                      <input type="text" class="form-control rounded px-2" id="matriculaServ" [value]="servidor.matricula" formControlName="matricula_serv"
+                        readonly>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- INFORMAÇÕES DO LOCAL -->
+                <div class="form-group row">
+                  <ng-container *ngFor="let lotacao of lotacoes| filter4:term5 | slice:0:1;  let i = index;">
+                    <div class="col-sm-2">
+                      <label for="idLot">Id Lotação:</label> 
+                      <input type="text" class="form-control rounded px-2" id="idLot" [value]="lotacao.id_lotacao" formControlName="id_lotacao_visita"
+                      [readonly]="true">
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="siglaLot">Sigla Lotação</label>
+                      <input type="text" class="form-control rounded px-2" id="siglaLot" [value]="lotacao.sigla_lotacao"
+                        readonly>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="descLot">Nome Lotação</label>
+                      <input type="text" class="form-control rounded px-2" id="descLot" [value]="lotacao.desc_lotacao"
+                        readonly>
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="sede">SEDE</label>
+                      <input type="text" class="form-control rounded px-2" id="sede" [value]="lotacao.local_lotacao"
+                        readonly>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- INFORMAÇÕES ADICIONAIS -->
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <textarea matInput placeholder="Observações" rows="3" formControlName="txt_observacoes"></textarea>
+                     </mat-form-field> 
+                    <!-- <label for="exampleFormControlTextarea1">Observações</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button mat-button (click)="stepper.reset()">Resetar</button>
+        <!-- <button mat-button (click)="onCancel()">Resetar</button> -->
+        <button mat-button (click)="onSubmit()">Salvar</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+<!-- <div class="row">
+      <div class="col-md-12">
+        Visitante: {{term3}}
+      </div>
+      <div class="col-md-12">
+        Irá visitar: {{term4}}
+        <ng-container *ngFor="let servidor of servidores| filter3:term4 | slice:0:1;  let i = index;">
+          {{servidor.nome_serv}
+        </ng-container>
+       {{testeDeNome.textContent}} 
+
+  {{form1.value | json}} 
+    </div>
+    <div class="col-md-12">
+      <ng-container *ngFor="let visitante of visitantes| filter:term3 | slice:0:1 ">
+        {{visitante.nome}}
+        {{visitante.id_cpf}}
+      </ng-container>
+    </div>
+    </div> -->
+
+<!-- <h5 class="card-title">Visita ao {{term4}}</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a> -->
