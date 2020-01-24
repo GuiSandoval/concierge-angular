@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
       let msg = 'O campo de Login é Obrigatório!'
       this.showNotification('top', 'right', msg, 4);
       console.log(msg);
-
     } else if (!this.model.password) {
       let msg = 'O campo de Senha é Obrigatório!'
       this.showNotification('top', 'right', msg, 4);

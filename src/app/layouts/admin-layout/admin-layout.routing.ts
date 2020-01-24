@@ -5,9 +5,10 @@ import { CadastroVisitaComponent } from './../../visitas/cadastro-visita/cadastr
 import { VisitasComponent } from './../../visitas/visitas.component';
 import { CadastroVisitanteComponent } from './../../visitantes/cadastro-visitante/cadastro-visitante.component';
 import { VisitantesComponent } from './../../visitantes/visitantes.component';
-import { Routes } from '@angular/router';
+import { Routes, CanActivate } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { AuthGuard } from 'app/guards/auth.guard';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -53,13 +54,13 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     // { path: 'Inicio',      component: VisitantesComponent },
-    { path: 'inicio',               component: DashboardComponent },
-    { path: 'visitantes',           component: VisitantesComponent },
-    { path: 'visitantes/criar',     component: CadastroVisitanteComponent },
-    { path: 'visitas',              component: VisitasComponent },
-    { path: 'visitas/cadastro',     component: CadastroVisitaComponent },
-    { path: 'visitas/cadastro2',    component: CadastroVisita2Component },
-    { path: 'usuarios',             component: UsuariosComponent },
+    { path: 'inicio',               component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'visitantes',           component: VisitantesComponent, canActivate: [AuthGuard] },
+    { path: 'visitantes/criar',     component: CadastroVisitanteComponent, canActivate: [AuthGuard] },
+    { path: 'visitas',              component: VisitasComponent, canActivate: [AuthGuard] },
+    { path: 'visitas/cadastro',     component: CadastroVisitaComponent, canActivate: [AuthGuard] },
+    { path: 'visitas/cadastro2',    component: CadastroVisita2Component, canActivate: [AuthGuard] },
+    { path: 'usuarios',             component: UsuariosComponent, canActivate: [AuthGuard] },
     // { path: 'login',                component: LoginComponent}
 
 ];
