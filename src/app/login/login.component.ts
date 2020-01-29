@@ -24,14 +24,14 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.logout();
+    // this.authService.logout();
   }
 
   login() {
-    if (!this.model.email) {
+
+    if (!this.model.username) {
       let msg = 'O campo de Login é Obrigatório!'
       this.showNotification('top', 'right', msg, 4);
-      console.log(msg);
     } else if (!this.model.password) {
       let msg = 'O campo de Senha é Obrigatório!'
       this.showNotification('top', 'right', msg, 4);
@@ -39,8 +39,7 @@ export class LoginComponent implements OnInit {
 
 
       this.model.action = 'login';
-      console.log(this.model.action);
-      console.log(this.model);
+      // console.log(this.model);
 
       this.authService.loginForm(this.model).subscribe(response => {
         if (response.status === 'success') {
@@ -49,13 +48,14 @@ export class LoginComponent implements OnInit {
 
 
 
-          this.authService.setUser(response);
-          console.log(response.message);
+          // this.authService.setUser(response);
+          
           this.showNotification('top', 'right', response.message, 2);
-          this.router.navigate(['inicio']);
+          this.router.navigate(['/inicio']);
+
         } else if (response.status === 'invalid') {
           this.showNotification('top', 'right', response.message, 4);
-          console.log(response.message);
+          // console.log(response.message);
         }
       }, error => {
         console.error(error);

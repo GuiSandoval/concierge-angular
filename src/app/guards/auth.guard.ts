@@ -7,13 +7,11 @@ import { AuthService } from 'app/services/auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-
-
   constructor(
     private router: Router,
     private authService: AuthService
   ) { }
-    // private teste = true;
+
   canActivate() {
     if (this.authService.isLoggedIn() && this.authService.isAuthenticated()) {
       console.log('deu certo');
@@ -22,9 +20,9 @@ export class AuthGuard implements CanActivate {
     } else {
       this.authService.logout();
       console.log('deu ruim');
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/login']);
       return false;
-     
+
     }
   }
 }

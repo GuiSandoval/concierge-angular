@@ -3,9 +3,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { LoginResponse } from 'app/interfaces/usuario';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { retry, catchError, map, tap } from 'rxjs/operators';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import * as jwtDecode from "jwt-decode";
+// import { runInThisContext } from 'vm';
+
 
 
 @Injectable({
@@ -13,16 +17,19 @@ import * as jwtDecode from "jwt-decode";
 })
 export class AuthService {
   AccessToken: string = "";
+  public testeStr;
+
   constructor(
     private http: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    ) { }
+
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
-
 
   // Tratamento de erros da API 
   handleError(error: HttpErrorResponse) {
@@ -44,14 +51,13 @@ export class AuthService {
 
 
   loginForm(data): Observable<LoginResponse> {
-    const url = 'http://localhost/visitantes-sejus/projeto/app/api.php';
+    const url = `${environment.Api_url}/projeto/app/api.php`;
     return this.http.post<LoginResponse>(url, data, this.httpOptions)
-    // .map(res => res.);   
-    // .pipe(
-    //   retry(2),
-    //   catchError(this.handleError)
-    //   );
+      .pipe(
+        tap(response => this.setUser(response))
+      )
   }
+
   isLoggedIn() {
     return localStorage.getItem('access_token') != null;
   }
@@ -61,11 +67,10 @@ export class AuthService {
   }
 
   setUser(resp: LoginResponse) {
-    console.log(resp);
+
     localStorage.setItem('nome', resp.name);
     localStorage.setItem('access_token', resp.access_token);
-    localStorage.setItem('Teste', 'teste');
-    this.router.navigate(['/logado']);
+    // this.router.navigate(['/inicio']);
   }
   //Verifica se o tempo do Token Expirou 
   isAuthenticated() {
@@ -84,5 +89,12 @@ export class AuthService {
       result = false;
     }
     return result;
+  }
+  decodedPayloadJWT(): any {
+    try {
+      return jwtDecode(localStorage.getItem('access_token'));
+    } catch (Error) {
+      return null;
+    }
   }
 }
