@@ -1,0 +1,316 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <!-- Tabela com a pesquisa -->
+    <div class="offset-md-1 col-md-9 mx-auto ps-child" id="example">
+      <!-- Pesquisa Visitante -->
+      <form id="filter" class="">
+        <mat-form-field class="example-full-width">
+          <input [(ngModel)]="term" name="something" matInput type="text" placeholder="Pesquisar Visitante...">
+        </mat-form-field>
+      </form>
+      <!-- Tabela de visitantes -->
+      <small>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" value="">Black List
+            <span class="form-check-sign">
+              <span class="check"></span>
+            </span>
+          </label>
+        </div>
+      </small>
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-tabs card-header-info">
+              <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                  <span class="nav-tabs-title"></span>
+                  <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item active">
+                      <a href="#profile" class="nav-link" data-toggle="tab">
+                        <i class="material-icons">people</i> Todos os Visitantes
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#messages" class="nav-link" data-toggle="tab">
+                        <i class="material-icons">warning</i> Black List
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#settings" class="nav-link" data-toggle="tab">
+                        <i class="material-icons">cloud</i> Third
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="profile">
+                  <div class="card-content table-responsive table-full-width tableFixHead">
+                    <table class="table">
+                      <thead class="text-danger" style="background-color: #6FE8CA !important;">
+                        <tr>
+                          <th>CPF</th>
+                          <th>Nome</th>
+                          <th> </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let visitante of visitantes | filter:term | slice:0:25;  let i = index;">
+                          <tr id="lista-visitantes"
+                          [ngClass]="{'table-danger' : visitante.id_black_list==1 }">
+                            <td>{{visitante.id_cpf}}</td>
+                            <!-- <td  data-toggle="modal"  attr.data-target="#toggleDemo-{{i}}">{{visitante.nome  | uppercase}}</td> -->
+                              <td data-toggle="modal" class="cursP" attr.data-target="#toggleDemo-{{i}}">
+                                {{visitante.nome  | uppercase}}</td>
+                            <div class="modal fade" id="toggleDemo-{{i}}" tabindex="-1" role="dialog"
+                              aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header" [ngClass]="classBL( visitante.id_black_list )">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{visitante.nome  | uppercase}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+
+                                  <div class="modal-body" [ngClass]="classBBL( visitante.id_black_list )">
+                                    <div class="card mb-3">
+                                      <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <img
+                                                src="data:image/png;base64,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"
+                                                class="card-img" alt="...">
+                                            </div>
+                                            <div class="col-md-12">
+                                              <table class="table  mt-3">
+                                                <thead>
+                                                  <tr>
+                                                    <th colspan="2">
+                                                      <h5 class="text-center">Ultimas Visitas</h5>
+                                                    </th>
+                                                  </tr>
+                                                  <tr><th>LOCAL</th><th>DATA</th></tr>
+                                                </thead>
+
+                                                <tbody>
+                                                  <tr>
+                                                    <td scope="row">SEJUS</td>
+                                                    <td>25/12/2019</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td scope="row">COORGEP</td>
+                                                    <td>02/11/2019</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td scope="row">SUBAV</td>
+                                                    <td>17/06/2019</td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                              <a href="#">Ver mais+</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                          <div class="card-body">
+                                            <h5 class="card-title">{{visitante.nome}}</h5>
+
+                                            <p class="card-text">CPF: {{visitante.id_cpf}}</p>
+                                            <hr>
+                                            <p class="card-text">Identidade: {{visitante.ci}} </p>
+                                            <hr>
+                                            <p class="card-text">Telefone: {{visitante.telefone}}</p>
+                                            <hr>
+                                            <p class="card-text">Matricula: {{visitante.matricula}} </p>
+                                            <hr>
+                                            <p class="card-text">Cargo: {{visitante.cargo}} </p>
+                                            <hr>
+                                            <p class="card-text">Orgão de Origem: {{visitante.orgao_origem}}</p>
+                                            <hr>
+                                            <p class="card-text"><small class="text-muted">Ultima vez atualizado em:
+                                                ...</small></p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-success">Salvar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <td><span class="">
+                                <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                    class="fas fa-ellipsis-v"></i></a>
+                                <!-- <button href="#" class="dropdown-toggle btn btn-primary btn-round" data-toggle="dropdown">Dropup <b class="caret"></b></button>  -->
+                                <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
+                                  <li class="dropdown-header">Dropdown header</li>
+                                  <li><a routerLink="/visitante/editar/{{visitante.id_cpf}}">Editar</a></li>
+                                  <li><a (click)='addBlackList(visitante.id_cpf,visitante.id_black_list)' class="text-danger">Adicionar/Remover Black List
+                                      List</a></li>
+                                  <!-- <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li> -->
+                                </ul>
+                              </span>
+                              <!-- <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v" ></i></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" routerLink="/visitante/editar/{{visitante.id_cpf}}">Editar</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                      </div>  -->
+                            </td>
+                          </tr>
+                        </ng-container>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="messages">
+                  <!-- VISITANTES QUE ESTÃO NA BLACK LIST -->
+
+
+
+
+                </div>
+                <div class="tab-pane" id="settings">
+                  Third Tab
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 0px !important;">
+        <!-- <div class="card-header card-header-primary mt-3">
+          <h4 class="card-title">Table Title</h4>
+          <p class="card-category">Here is a subtitle for this table</p>
+        </div> -->
+
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="row">
+        <!-- Cadastra Visitante -->
+        <div class="col-md-12 mx-auto">
+          <!-- <app-error-msg></app-error-msg> -->
+          <div class="text-right">
+            <button type="button" class="btn btn-success btn-sm-ml-1" routerLink="/visitantes/criar">Novo
+              Visitante</button>
+          </div>
+          <div class="text-center" *ngIf="!existeVisitantes()">
+            Nenhum Visitante Cadastrado.
+          </div>
+        </div>
+        <!-- Black LIst -->
+        <div class="col-md-12 mx-auto">
+          <!-- <app-error-msg></app-error-msg> -->
+          <div class="text-right">
+            <button type="button" class="btn btn-dark btn-sm-ml-1" data-toggle="modal" data-target="#modalBL">Black
+              List</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-xl" id="modalBL" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Registros da Black List</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="card">
+            <!-- <div class="card-header card-header-warning" >
+              <h4 class="card-title">Table Title</h4>
+              <p class="card-category">Here is a subtitle for this table</p>
+            </div> -->
+            <div class="card-content table-responsive table-full-width">
+              <table class="table">
+                <thead class="text-danger">
+                  <th></th>
+                  <th>CPF</th>
+                  <th>NOME</th>
+                  <th>DATA ENTRADA</th>
+                  <th>DATA SAIDA</th>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let bl of blackList | slice:1; let i = index">
+                    <ng-container *ngIf="bl.data_saida == null;else lBL;">
+                      <tr class="text-danger">
+                        <td>{{i}}</td>
+                        <td>{{bl.id_cpf_visitante}}</td>
+                        <td>{{bl.nome}}</td>
+                        <td>{{bl.data_entrada}}</td>
+                        <td class="text-danger">{{bl.data_saida}}</td>
+                      </tr>
+                    </ng-container>
+                    <ng-template #lBL>
+                      <tr>
+                        <td>{{i}}</td>
+                        <td>{{bl.id_cpf_visitante}}</td>
+                        <td>{{bl.nome}}</td>
+                        <td>{{bl.data_entrada}}</td>
+                        <td>{{bl.data_saida}}</td>
+                      </tr>
+                    </ng-template>
+
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var ajax = "";
+  $(function () {
+    retorna_tweets(1);
+    $('body').data('pagina', 1);
+    inicializa_scroll();
+  });
+
+  function inicializa_scroll() {
+    $(window).scroll(function () {
+      if (($(window).scrollTop() + $(window).height() + 20) >= $(document).height()) {
+        $(window).unbind('scroll');
+        ajax.abort();
+        retorna_tweets($('body').data('pagina'));
+      }
+    });
+  }
+
+  $("#example").bind("mousewheel", function (ev, delta) {
+    var scrollTop = $(this).scrollTop();
+    $(this).scrollTop(scrollTop - Math.round(delta));
+  });
+</script>

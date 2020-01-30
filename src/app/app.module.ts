@@ -11,6 +11,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -18,7 +19,8 @@ import {
   MatFormFieldModule,
   MatTooltipModule,
   MatSelectModule,
-  MatStepperModule
+  MatStepperModule,
+  MatTableModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -31,6 +33,7 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+// import { Visitantes2Component } from './visitantes2/visitantes2.component';
 // import { FilterPipe } from './filter.pipe';
 // import { HttpClientModule } from '@angular/common/http';
 
@@ -54,13 +57,14 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     MatTooltipModule,
     MatSelectModule,
     MatStepperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     // DashboardComponent,
-    LoginComponent
+    LoginComponent,
   ],
   providers: [
     { provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false } },

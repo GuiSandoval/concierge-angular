@@ -9,6 +9,7 @@ import { Routes, CanActivate } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { AuthGuard } from 'app/guards/auth.guard';
+import { Visitantes2Component } from 'app/visitantes2/visitantes2.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -56,6 +57,7 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'Inicio',      component: VisitantesComponent },
     { path: 'inicio',               component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'visitantes',           component: VisitantesComponent, canActivate: [AuthGuard] },
+    { path: 'visitantes2',           component: Visitantes2Component, canActivate: [AuthGuard] },
     { path: 'visitantes/criar',     component: CadastroVisitanteComponent, canActivate: [AuthGuard] },
     { path: 'visitas',              component: VisitasComponent, canActivate: [AuthGuard] },
     { path: 'visitas/cadastro',     component: CadastroVisitaComponent, canActivate: [AuthGuard] },
