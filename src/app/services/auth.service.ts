@@ -1,3 +1,4 @@
+import { Token } from './../interfaces/token';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from './../../environments/environment';
@@ -90,6 +91,18 @@ export class AuthService {
     }
     return result;
   }
+
+  isAuthenticated2(): Observable<Token>{
+   const url = `${environment.Api_url}/projeto/app/api.php`;
+   const data = {
+     "action" : "stuff",
+     "token" : localStorage.getItem('access_token')
+   }
+   return this.http.post<Token>(url, data, this.httpOptions);
+
+  }
+
+
   decodedPayloadJWT(): any {
     try {
       return jwtDecode(localStorage.getItem('access_token'));

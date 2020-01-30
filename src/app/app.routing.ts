@@ -30,7 +30,7 @@ const routes: Routes = [
     component: LoginComponent,
   },
   // { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  { path: '**', redirectTo: '/inicio' },
 ];
 
 // const routes: Routes =[
