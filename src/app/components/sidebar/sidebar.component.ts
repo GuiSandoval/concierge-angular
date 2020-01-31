@@ -18,9 +18,9 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
-    { path: '/visitas', title: 'Visitas',  icon:'how_to_reg', class: '' },
-    { path: '/visitantes', title: 'Visitantes',  icon:'supervisor_account', class: '' },
-    { path: '/usuarios', title: 'Usuarios', icon: 'account_box',class:''}
+    { path: '/visitas',     title: 'Visitas',     icon:'how_to_reg',          class: '' },
+    { path: '/visitantes',  title: 'Visitantes',  icon:'supervisor_account',  class: '' },
+    { path: '/usuarios',    title: 'Usuarios',    icon: 'account_box',        class:''}
 ];
 
 @Component({

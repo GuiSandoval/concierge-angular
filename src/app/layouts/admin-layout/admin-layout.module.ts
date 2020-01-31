@@ -1,3 +1,6 @@
+import { AppRoutingModule } from './../../app.routing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 import { CadastroVisitaComponent } from './../../visitas/cadastro-visita/cadastro-visita.component';
 import { VisitasComponent } from './../../visitas/visitas.component';
 import { FormDebugComponent } from './../../components/form-debug/form-debug.component';
@@ -75,10 +78,15 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material';
 import { Visitantes2Component } from 'app/visitantes2/visitantes2.component';
+import { Visitas2Component } from 'app/visitas2/visitas2.component';
+import { CdkDetailRowDirective } from 'app/visitas2/cdk-detail-row.directive';
 // import { LoginComponent } from 'app/login/login.component';
 @NgModule({
   imports: [
     CommonModule,
+    // BrowserModule,
+    // BrowserAnimationsModule,
+    // AppRoutingModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
@@ -149,10 +157,14 @@ import { Visitantes2Component } from 'app/visitantes2/visitantes2.component';
     CadastroVisita2Component,
     Filter4Pipe,
     UsuariosComponent,
-    Visitantes2Component
+    Visitantes2Component,
+    Visitas2Component,
+    CdkDetailRowDirective
 
     // LoginComponent
-  ]
+  ],
+  entryComponents: [Visitas2Component],
+  bootstrap: [Visitas2Component],
 })
 
 export class AdminLayoutModule {}

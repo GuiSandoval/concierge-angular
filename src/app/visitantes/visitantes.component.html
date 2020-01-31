@@ -21,61 +21,63 @@
   </div>
   <div class="row">
   </div>
-
   <p><small><i class='fas fa-address-card'></i> Servidor | <i class='fas fa-user'></i> Visitante </small></p>
-  <div class="mat-elevation-z8 example-table-container">
-    <table mat-table [dataSource]="dataSource" matSort>
+  <div class="mat-elevation-z8">
+    <div class="example-table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> CPF </th>
-        <td mat-cell *matCellDef="let row"> 
-          <span *ngIf="row.matricula as value; else elseBlock"><i class='fas fa-address-card'></i></span>
-          <ng-template #elseBlock><i class='fas fa-user'></i></ng-template>
-         
-          {{row.id_cpf}} 
-        </td>
-      </ng-container>
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> CPF </th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.matricula as value; else elseBlock"><i class='fas fa-address-card'></i></span>
+            <ng-template #elseBlock><i class='fas fa-user'></i></ng-template>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-        <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
-      </ng-container>
+            {{row.id_cpf}}
+          </td>
+        </ng-container>
 
-      <!-- Progress Column -->
-      <ng-container matColumnDef="progress">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Identidade </th>
-        <td mat-cell *matCellDef="let row"> {{row.ci}}</td>
-      </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+          <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="progress">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Identidade </th>
+          <td mat-cell *matCellDef="let row"> {{row.ci}}</td>
+        </ng-container>
 
 
-      <!-- Color Column -->
-      <ng-container matColumnDef="matricula">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricula </th>
-        <td mat-cell *matCellDef="let row"> {{row.matricula}} </td>
-      </ng-container>
+        <!-- Color Column -->
+        <ng-container matColumnDef="matricula">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricula </th>
+          <td mat-cell *matCellDef="let row"> {{row.matricula}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="info">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row"><span class="">
-            <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                class="fas fa-ellipsis-v"></i></a>
-            <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
-              <li class="dropdown-header">Dropdown header</li>
-              <li><a routerLink="/visitante/editar/{{row.id_cpf}}">Editar</a></li>
-              <li><a (click)='addBlackList( row.id_cpf , row.id_black_list)' class="text-danger">Adicionar/Remover Black List</a></li>
-            </ul>
-          </span>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="info">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row"><span class="">
+              <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                  class="fas fa-ellipsis-v"></i></a>
+              <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
+                <li class="dropdown-header">Dropdown header</li>
+                <li><a routerLink="/visitante/editar/{{row.id_cpf}}">Editar</a></li>
+                <li><a (click)='addBlackList( row.id_cpf , row.id_black_list)' class="text-danger">Adicionar/Remover
+                    Black List</a></li>
+              </ul>
+            </span>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"[ngClass]="{'table-danger' : row.id_black_list==1 }"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[10,25,50,100]"></mat-paginator>
   </div>
-
-  <mat-paginator [pageSizeOptions]="[25, 100]"></mat-paginator>
 
 
   <!-- Copyright 2019 Google LLC. All Rights Reserved.

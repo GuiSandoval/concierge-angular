@@ -33,20 +33,23 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { BrowserModule } from '@angular/platform-browser';
+// import { Visitas2Component } from './visitas2/visitas2.component';
 // import { Visitantes2Component } from './visitantes2/visitantes2.component';
 // import { FilterPipe } from './filter.pipe';
 // import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
+    BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     HttpModule,
     ComponentsModule,
     RouterModule,
-    AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),

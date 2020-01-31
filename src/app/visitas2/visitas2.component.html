@@ -1,0 +1,82 @@
+<div class="example-header">
+	<mat-form-field>
+		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar...">
+	</mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+	<mat-table #table [dataSource]="dataSource" matSort>
+
+		<!-- Id_cpf Column -->
+		<ng-container matColumnDef="id_cpf">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> CPF VISITANTE </mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.id_cpf}}</mat-cell>
+		</ng-container>
+
+		<!-- nomeVisit Column -->
+		<ng-container matColumnDef="nomeVisit">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> NOME VISITANTE </mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
+		</ng-container>
+
+		<!-- localVisit Column -->
+		<ng-container matColumnDef="localVisit">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> LOCAL VISITADO </mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.sigla_lotacao}}</mat-cell>
+		</ng-container>
+
+		<!-- nomeServ Column -->
+		<ng-container matColumnDef="nomeServ">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> NOME SERVIDOR </mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.nome_serv}}</mat-cell>
+		</ng-container>
+
+		<!-- cpfServ Column -->
+		<ng-container matColumnDef="cpfServ">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> CPF SERVIDOR </mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.id_cpf_visitado}}</mat-cell>
+		</ng-container>
+
+		<!-- dataHora Column -->
+		<ng-container matColumnDef="dataHora">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> Data e Hora </mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.hora_entrada}}|{{element.data_entrada}}</mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns;" matRipple class="element-row" [cdkDetailRow]="row"
+			[cdkDetailRowTpl]="tpl">
+		</mat-row>
+	</mat-table>
+
+	<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>
+
+<ng-template #tpl let-element>
+	<div class="mat-row detail-row p-3 text-black" [@detailExpand] style="overflow: hidden; background-color: #0a5caa;">
+
+		<div class="container rounded bg-light p-3">
+			<p>Id_visita : {{element.id_visita}} 			</p>
+			<p>id_cpf : {{element.id_cpf}} 							</p>
+			<p>id_lotacao_visita : {{element.id_lotacao_visita}} 	</p>
+			<p>data_entrada : {{element.data_entrada}} 				</p>
+			<p>hora_entrada : {{element.hora_entrada}} 				</p>
+			<p>id_cpf_visitado : {{element.id_cpf_visitado}} 		</p>
+			<p>txt_observacoes : {{element.txt_observacoes}} 		</p>
+			<p>txt_visitado : {{element.txt_visitado}} 				</p>
+			<p>id_cartao : {{element.id_cartao}} 					</p>
+			<p>sigla_lotacao : {{element.sigla_lotacao}} 			</p>
+			<p>local_lotacao : {{element.local_lotacao}} 			</p>
+			<p>desc_lotacao : {{element.desc_lotacao}} 				</p>
+			<p>nome : {{element.nome}} 								</p>
+			<p>nome_serv : {{element.nome_serv}} 					</p>
+
+		</div>
+	</div>
+</ng-template>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

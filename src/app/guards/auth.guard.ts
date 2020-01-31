@@ -11,10 +11,10 @@ export class AuthGuard implements CanActivate {
     private authService: AuthService
   ) { }
   
-
+    private stToken
   canActivate() {
 
-    this.authService.isAuthenticated2();
+    this.authService.isAuthenticated2().subscribe(resp => this.stToken = resp.status);
     
     if (this.authService.isLoggedIn()) {
       // if (this.authService.isLoggedIn() && this.authService.isAuthenticated()) {

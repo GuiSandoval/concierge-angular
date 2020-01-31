@@ -8,5 +8,10 @@ export interface Visitas {
     txt_observacoes: string;
     txt_visitado: string;
     id_cartao:number;
+    sigla_lotacao:string;
+    local_lotacao:string;
+    desc_lotacao:string;
+    nome:string;
+    nome_serv:string;
 }
 
