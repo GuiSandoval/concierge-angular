@@ -110,4 +110,10 @@ export class AuthService {
       return null;
     }
   }
+  
+  getTipoUser(){
+    const token = this.decodedPayloadJWT();
+    return token.data.id_tipo_usuario;
+  }
+  
 }

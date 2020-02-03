@@ -1,3 +1,4 @@
+import { AuthService } from 'app/services/auth.service';
 import { BlackList } from './../interfaces/black-list';
 import { FilterPipe } from './../filter.pipe';
 import { Visitantes } from './../interfaces/visitantes';
@@ -35,12 +36,14 @@ export class VisitantesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'progress','matricula','info'];
   dataSource: MatTableDataSource<Visitantes>;
   visitantes: Visitantes[];
+  public idTipoUsuario : number = this.authService.getTipoUser();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   blackList: BlackList[];
 
-  constructor(private visitanteServ: VisitanteService) { }
+  constructor(private visitanteServ: VisitanteService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     // this.dataSource.paginator = this.paginator;

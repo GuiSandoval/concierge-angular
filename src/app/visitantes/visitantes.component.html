@@ -64,15 +64,18 @@
               <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
                 <li class="dropdown-header">Dropdown header</li>
                 <li><a routerLink="/visitante/editar/{{row.id_cpf}}">Editar</a></li>
-                <li><a (click)='addBlackList( row.id_cpf , row.id_black_list)' class="text-danger">Adicionar/Remover
-                    Black List</a></li>
+                <ng-template [ngIf]="idTipoUsuario === 3 ">
+                  <li><a (click)='addBlackList( row.id_cpf , row.id_black_list)' class="text-danger">Adicionar/Remover Black List</a></li>
+                </ng-template>
+
               </ul>
             </span>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"[ngClass]="{'table-danger' : row.id_black_list==1 }"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          [ngClass]="{'table-danger' : row.id_black_list==1 }"></tr>
       </table>
     </div>
 

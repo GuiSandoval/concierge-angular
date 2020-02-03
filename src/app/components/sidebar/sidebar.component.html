@@ -3,12 +3,12 @@
         <!-- <div class="logo-img logo-img-gdf">
             <img src="/assets/img/GDF_Marca_Horizontal.png"/>
         </div> -->
-            Sistema Portaria
+        Sistema Portaria
     </a>
 </div>
 <div class="sidebar-wrapper" style="background-color:#0a5caa;">
-<!-- Versao Mobile -->
-  <!-- <div *ngIf="isMobileMenu()">
+    <!-- Versao Mobile -->
+    <!-- <div *ngIf="isMobileMenu()">
     <form class="navbar-form">
       <span class="bmd-form-group">
         <div class="input-group no-border">
@@ -55,13 +55,16 @@
         </li>
     </ul>
   </div> -->
-  <!-- Versao PC -->
+    <!-- Versao PC -->
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link text-white" [routerLink]="[menuItem.path]">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p>{{menuItem.title}}</p>
-            </a>
+            <ng-template [ngIf]="menuItem.access <= idTipoUsuario">
+                <a class="nav-link text-white" [routerLink]="[menuItem.path]">
+                    <i class="material-icons">{{menuItem.icon}}</i>
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </ng-template>
+
         </li>
     </ul>
 </div>
