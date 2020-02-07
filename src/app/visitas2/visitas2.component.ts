@@ -29,8 +29,8 @@ export class Visitas2Component implements OnInit {
   displayedColumns: string[] = ['id_cpf', 'nomeVisit', 'localVisit', 'nomeServ','cpfServ','dataHora'];
   dataSource : MatTableDataSource<Visitas>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 

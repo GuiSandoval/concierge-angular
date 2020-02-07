@@ -80,7 +80,16 @@ import { MatFormFieldModule } from '@angular/material';
 import { Visitantes2Component } from 'app/visitantes2/visitantes2.component';
 import { Visitas2Component } from 'app/visitas2/visitas2.component';
 import { CdkDetailRowDirective } from 'app/visitas2/cdk-detail-row.directive';
+import { CadastroVisitante2Component } from 'app/visitantes/cadastro-visitante2/cadastro-visitante2.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+
+
 // import { LoginComponent } from 'app/login/login.component';
+
+export const options2: Partial<any> | (() => Partial<any>) = undefined;
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -143,6 +152,8 @@ import { CdkDetailRowDirective } from 'app/visitas2/cdk-detail-row.directive';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    NgxMaskModule.forRoot(options2),
+    MaterialFileInputModule
     
   ],
   declarations: [
@@ -159,7 +170,9 @@ import { CdkDetailRowDirective } from 'app/visitas2/cdk-detail-row.directive';
     UsuariosComponent,
     Visitantes2Component,
     Visitas2Component,
-    CdkDetailRowDirective
+    CdkDetailRowDirective,
+    CadastroVisitante2Component,
+
 
     // LoginComponent
   ],

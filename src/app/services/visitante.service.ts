@@ -1,4 +1,5 @@
-import { map, take } from 'rxjs/operators';
+import { CadVisitante } from './../interfaces/cad-visitante';
+import { map, take, tap, delay } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 
 import { BlackList } from './../interfaces/black-list';
@@ -16,31 +17,46 @@ import { HttpClientModule } from '@angular/common/http';
 export class VisitanteService {
 
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   //Lista de visitantes
-  getListaVisitantes(): Observable<Visitantes[]>{
+  getListaVisitantes(): Observable<Visitantes[]> {
     const url = `${environment.Api_url}/?pesquisa`;
     return this.http.get<Visitantes[]>(url);
   }
   //Informações completas de um Visitante
-  getVisitante(visitante) : Observable<Visitantes>{
+  getVisitante(visitante): Observable<Visitantes> {
     const url = `${environment.Api_url}/?pesquisa=${visitante}`;
-    return this.http.get<Visitantes>(url);
+    return this.http.get<Visitantes>(url).pipe(take(1));
+  }
+  //Verifica Visitante no banco
+  verificaVisitante(visitante: string) {
+    const url = `${environment.Api_url}/?pesquisa=${visitante}`;
+    return this.http.get<Visitantes>(url)
+      .pipe(
+        delay(2000),
+        map((dados: any) => dados),
+        // map((dados : any) => dados.map( v => v.id_cpf)),
+        // tap(console.log),
+        map((dados: Visitantes[]) =>dados.filter( v => v.id_cpf === visitante)),
+        // tap(console.log),
+        map((dados : any[]) => dados.length > 0)
+        // tap(console.log)
+      );
   }
   //Adicionar Novo Visitante
-  addVisitante(visitante): Observable<Visitantes>{
+  addVisitante(visitante): Observable<CadVisitante> {
     const url = `${environment.Api_url}/?cadastro`;
-    return this.http.post<Visitantes>(url, visitante);
+    return this.http.post<CadVisitante>(url, visitante);
   }
 
   //Adicionar à Black List 
-  addBlacklist(id_cpf) : Observable<any>{
+  addBlacklist(id_cpf): Observable<any> {
     const url = `${environment.Api_url}/?blacklist=${id_cpf}`;
     return this.http.get<any>(url);
   }
   //Remover Black List
-  removeBlackList(id_cpf){
+  removeBlackList(id_cpf) {
     const url = `${environment.Api_url}/?retiraBlackList=${id_cpf}`;
     return this.http.get<any>(url);
   }
@@ -50,14 +66,14 @@ export class VisitanteService {
   //   .map(res=> res.json());
   // }
 
-  getBlackList() : Observable<BlackList[]> {
+  getBlackList(): Observable<BlackList[]> {
     const url = `${environment.Api_url}/?pesquisaBlackList`;
     return this.http.get<BlackList[]>(url);
   }
 
-  addVisitante2(visitante){
+  addVisitante2(visitante) {
     const url = `${environment.Api_url}/?cadastro`;
-    return this.http.post(url,visitante).pipe(take(1));
+    return this.http.post(url, visitante);
   }
 
 

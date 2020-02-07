@@ -8,7 +8,7 @@
     <div class="col-md-2 mx-auto">
       <!-- <app-error-msg></app-error-msg> -->
       <div class="text-right">
-        <button type="button" class="btn btn-success btn-sm-ml-1" routerLink="/visitantes/criar">Novo
+        <button type="button" class="btn btn-success btn-sm-ml-1" routerLink="/visitantes/cadastro">Novo
           Visitante</button>
       </div>
       <!-- Black LIst -->
@@ -63,7 +63,8 @@
                   class="fas fa-ellipsis-v"></i></a>
               <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
                 <li class="dropdown-header">Dropdown header</li>
-                <li><a routerLink="/visitante/editar/{{row.id_cpf}}">Editar</a></li>
+                <!-- <li><a routerLink="/visitante/editar/{{row.id_cpf}}">Editar</a></li> -->
+                <li><a (click)="onEdit(row.id_cpf)">Editar</a></li>
                 <ng-template [ngIf]="idTipoUsuario === 3 ">
                   <li><a (click)='addBlackList( row.id_cpf , row.id_black_list)' class="text-danger">Adicionar/Remover Black List</a></li>
                 </ng-template>

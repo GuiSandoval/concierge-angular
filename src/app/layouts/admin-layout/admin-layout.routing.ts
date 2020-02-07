@@ -13,18 +13,21 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { AuthGuard } from 'app/guards/auth.guard';
 import { Visitantes2Component } from 'app/visitantes2/visitantes2.component';
 import { Visitas2Component } from 'app/visitas2/visitas2.component';
+import { CadastroVisitante2Component } from 'app/visitantes/cadastro-visitante2/cadastro-visitante2.component';
 
 export const AdminLayoutRoutes: Routes = [
   
-    { path: 'inicio',               component: DashboardComponent,          canActivate: [AuthGuard] },
-    { path: 'visitantes',           component: VisitantesComponent,         canActivate: [AuthGuard] },
-    { path: 'visitantes2',          component: Visitantes2Component,        canActivate: [AuthGuard] },
-    { path: 'visitantes/criar',     component: CadastroVisitanteComponent,  canActivate: [AuthGuard] },
-    { path: 'visitas',              component: VisitasComponent,            canActivate: [AuthGuard,UserGuard] },
-    { path: 'visitas2',             component: Visitas2Component,           canActivate: [AuthGuard,UserGuard] },
-    { path: 'visitas/cadastro',     component: CadastroVisitaComponent,     canActivate: [AuthGuard] },
-    { path: 'visitas/cadastro2',    component: CadastroVisita2Component,    canActivate: [AuthGuard] },
-    { path: 'usuarios',             component: UsuariosComponent,           canActivate: [AuthGuard,AdminGuard] },
+    { path: 'inicio',                   component: DashboardComponent,          canActivate: [AuthGuard] },
+    { path: 'visitantes',               component: VisitantesComponent,         canActivate: [AuthGuard] },
+    { path: 'visitantes2',              component: Visitantes2Component,        canActivate: [AuthGuard] },
+    { path: 'visitantes/cadastro',      component: CadastroVisitanteComponent,  canActivate: [AuthGuard] },
+    { path: 'visitantes/cadastro2',     component: CadastroVisitante2Component, canActivate: [AuthGuard] },
+    { path: 'visitantes/editar/:id',    component: CadastroVisitanteComponent,  canActivate: [AuthGuard] },
+    { path: 'visitas',                  component: VisitasComponent,            canActivate: [AuthGuard,UserGuard] },
+    { path: 'visitas2',                 component: Visitas2Component,           canActivate: [AuthGuard,UserGuard] },
+    { path: 'visitas/cadastro',         component: CadastroVisitaComponent,     canActivate: [AuthGuard] },
+    { path: 'visitas/cadastro2',        component: CadastroVisita2Component,    canActivate: [AuthGuard] },
+    { path: 'usuarios',                 component: UsuariosComponent,           canActivate: [AuthGuard,AdminGuard] },
     // { path: 'login',                component: LoginComponent}
 
 ];

@@ -19,11 +19,22 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.AuthService.logout();
 
                 // location.reload(true);
-            }
-            this.not.showNotification('Sessão Expirada!',4);
+                const error = err.error.message || err.statusText;
+                this.not.showNotification(error,4);
 
+            }
+            if (err.status > 500) {
+                // auto logout if 401 response returned from api
+                console.log(err.response);
+                const error = err.error.message || err.statusText;
+
+                // location.reload(true);
+            }
+            
             const error = err.error.message || err.statusText;
             return throwError(error);
-        }))
+
+        }
+        ))
     }
 }

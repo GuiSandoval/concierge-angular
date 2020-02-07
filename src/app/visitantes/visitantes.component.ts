@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { BlackList } from './../interfaces/black-list';
 import { FilterPipe } from './../filter.pipe';
@@ -42,8 +43,10 @@ export class VisitantesComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   blackList: BlackList[];
 
-  constructor(private visitanteServ: VisitanteService,
-    private authService: AuthService) { }
+  constructor(
+    private visitanteServ: VisitanteService,
+    private authService: AuthService,
+    private router : Router) { }
 
   ngOnInit() {
     // this.dataSource.paginator = this.paginator;
@@ -52,6 +55,9 @@ export class VisitantesComponent implements OnInit {
     this.getListaBlackList();
 
 
+  }
+  onEdit(id){
+    this.router.navigate(['visitantes/editar', id])
   }
   getListaBlackList() {
     this.visitanteServ.getBlackList()
