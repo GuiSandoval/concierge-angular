@@ -42,7 +42,6 @@
         <mat-form-field class="col-md-2">
           <input matInput placeholder="Telefone" formControlName="telefone" mask="(00)0 0000-0000">
         </mat-form-field>
-
         <!-- CAMPO DE CARGO -->
         <mat-form-field class="col-md-3">
           <input matInput placeholder="Cargo" formControlName="cargo">
@@ -53,14 +52,8 @@
         </mat-form-field>
         <!-- CAMPO DE FOTO -->
         <mat-form-field>
-          <ngx-mat-file-input formControlName="foto_visit" placeholder="Adicionar Foto" #file type="file" accept='image/*' (change)="preview(file.files)"></ngx-mat-file-input>
-          <mat-icon matSuffix>folder</mat-icon>
+          <input matInput placeholder="Orgão de origem" formControlName="foto_visit">
         </mat-form-field>
-        
-          <!-- <span style="color:red;" *ngIf="message">{{message}}</span> -->
-          <!-- <input #file type="file" accept='image/*' (change)="preview(file.files)" formControlName="foto_visit"/>
-          <img [src]="imgURL" height="200" *ngIf="imgURL"> -->
-
 
         <!-- BOTÕES -->
         <div class="col-md-12">
@@ -70,9 +63,7 @@
 
       </form>
     </div>
-    <div class="col-md-12">
-      <app-form-debug [form]="formulario"></app-form-debug>
-
-    </div>
+    <!-- DEBUG DE FORMULÁRIO -->
+    <!-- <div class="col-md-12"><app-form-debug [form]="formulario"></app-form-debug></div> -->
   </div>
 </div>
