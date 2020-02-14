@@ -1,12 +1,10 @@
-import { AppRoutingModule } from './../../app.routing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
+
 import { CadastroVisitaComponent } from './../../visitas/cadastro-visita/cadastro-visita.component';
 import { VisitasComponent } from './../../visitas/visitas.component';
 import { FormDebugComponent } from './../../components/form-debug/form-debug.component';
 import { CadastroVisitanteComponent } from './../../visitantes/cadastro-visitante/cadastro-visitante.component';
 import { FilterPipe } from './../../filter.pipe';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { VisitantesComponent } from './../../visitantes/visitantes.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -15,30 +13,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { SelectModule } from 'ng2-select';
-// import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
-
-
-// import {
-//   MatButtonModule,
-//   MatInputModule,
-//   MatRippleModule,
-//   MatFormFieldModule,
-//   MatTooltipModule,
-//   MatSelectModule,
-//   MatStepperModule,
-//   MatTableModule,
-// } from '@angular/material';
-import { HttpModule } from '@angular/http';
 import { Filter3Pipe } from 'app/filter3.pipe';
 import { CadastroVisita2Component } from 'app/visitas/cadastro-visita2/cadastro-visita2.component';
 import { Filter4Pipe } from 'app/filter4.pipe';
 import { UsuariosComponent } from 'app/usuarios/usuarios.component';
-// import {NgModule} from '@angular/core';
 import {A11yModule} from '@angular/cdk/a11y';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {PortalModule} from '@angular/cdk/portal';
-import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
@@ -93,9 +74,6 @@ export const options2: Partial<any> | (() => Partial<any>) = undefined;
 @NgModule({
   imports: [
     CommonModule,
-    // BrowserModule,
-    // BrowserAnimationsModule,
-    // AppRoutingModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
@@ -151,7 +129,7 @@ export const options2: Partial<any> | (() => Partial<any>) = undefined;
     MatTooltipModule,
     MatTreeModule,
     PortalModule,
-    ScrollingModule,
+    // ScrollingModule,
     NgxMaskModule.forRoot(options2),
     MaterialFileInputModule
     
@@ -173,8 +151,6 @@ export const options2: Partial<any> | (() => Partial<any>) = undefined;
     CdkDetailRowDirective,
     CadastroVisitante2Component,
 
-
-    // LoginComponent
   ],
   entryComponents: [Visitas2Component],
   bootstrap: [Visitas2Component],

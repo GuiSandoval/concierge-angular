@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="example-header">
 		<mat-form-field>
-			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar...">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar..." autocomplete="off">
 		</mat-form-field>
 	</div>
 
@@ -11,7 +11,7 @@
 			<!-- Id_cpf Column -->
 			<ng-container matColumnDef="id_cpf">
 				<mat-header-cell *matHeaderCellDef mat-sort-header> CPF VISITANTE </mat-header-cell>
-				<mat-cell *matCellDef="let element">{{element.id_cpf}}</mat-cell>
+				<mat-cell *matCellDef="let element">{{element.id_cpf | mask: '000.000.000-00'}}</mat-cell>
 			</ng-container>
 
 			<!-- nomeVisit Column -->
@@ -29,13 +29,13 @@
 			<!-- nomeServ Column -->
 			<ng-container matColumnDef="nomeServ">
 				<mat-header-cell *matHeaderCellDef mat-sort-header> NOME SERVIDOR </mat-header-cell>
-				<mat-cell *matCellDef="let element">{{element.nome_serv}}</mat-cell>
+				<mat-cell *matCellDef="let element">{{element.nome_serv }}</mat-cell>
 			</ng-container>
 
 			<!-- cpfServ Column -->
 			<ng-container matColumnDef="cpfServ">
 				<mat-header-cell *matHeaderCellDef mat-sort-header> CPF SERVIDOR </mat-header-cell>
-				<mat-cell *matCellDef="let element">{{element.id_cpf_visitado}}</mat-cell>
+				<mat-cell *matCellDef="let element">{{element.id_cpf_visitado | mask: '000.000.000-00'}}</mat-cell>
 			</ng-container>
 
 			<!-- dataHora Column -->
@@ -70,7 +70,7 @@
 							<h3>DADOS VISITANTES</h3>
 							<hr>
 							<p>Nome : {{element.nome}} </p>
-							<p>CPF : {{element.id_cpf}} </p>
+							<p>CPF : {{element.id_cpf | mask: '000.000.000-00'}} </p>
 						</div>
 						<div class="col-md-4">
 							<hr>
@@ -84,7 +84,7 @@
 							<hr>
 							<h3>DADOS VISITADO</h3>
 							<hr>
-							<p>CPF : {{element.id_cpf_visitado}} </p>
+							<p>CPF : {{element.id_cpf_visitado | mask: '000.000.000-00'}} </p>
 							<p>Nome : {{element.nome_serv}} </p>
 						</div>
 						<hr>
@@ -99,7 +99,3 @@
 		</div>
 	</ng-template>
 </div>
-
-<!-- Copyright 2018 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->

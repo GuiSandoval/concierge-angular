@@ -20,7 +20,7 @@
           <mat-autocomplete #auto2="matAutocomplete">
             <ng-container *ngFor="let visitante of visitantes| filter:term3 | slice:0:20;  let i = index;">
               <mat-option [value]="visitante.nome">
-                {{visitante.id_cpf}} - {{visitante.nome}}
+                {{visitante.id_cpf | mask: '000.000.000-00'}} - {{visitante.nome}}
                 <!-- <input type="hidden" [(ngModel)]="teste444" value="ola"> -->
               </mat-option>
             </ng-container>
@@ -119,12 +119,12 @@
                     </div>
                     <div class="col-sm-3">
                       <label for="cpfVisit">CPF do Visitante: </label>
-                      <input type="text" class="form-control rounded px-2" id="cpfVisit" [value]="visitante.id_cpf" formControlName="id_cpf"
+                      <input type="text" class="form-control rounded px-2" id="cpfVisit" [value]="visitante.id_cpf" mask="000.000.000-00" formControlName="id_cpf"
                         readonly>
                     </div>
                     <div class="col-sm-3">
                       <label for="ciVisit">Identidade do Visitante: </label>
-                      <input type="text" class="form-control rounded px-2" id="ciVisit" [value]="visitante.ci"
+                      <input type="text" class="form-control rounded px-2" id="ciVisit" [value]="visitante.ci | mask:'0.000.000'"
                         readonly>
                     </div>
                   </ng-container>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="col-sm-3">
                       <label for="cpfServ">CPF do Servidor: </label>
-                      <input type="text" class="form-control rounded px-2" id="cpfServ" [value]="servidor.id_cpf" formControlName="id_cpf_visitado"
+                      <input type="text" class="form-control rounded px-2" id="cpfServ" [value]="servidor.id_cpf" mask="000.000.000-00" formControlName="id_cpf_visitado"
                         readonly>
                     </div>
                     <div class="col-sm-4">
