@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="rounded col-md-12 bg-light shadow-lg p-3">
+      <h3>CADASTRO DE USUÁRIO</h3>
+      <hr>
+      <form [formGroup]="form">
+        <div class="form-row">
+          <!-- CAMPO DE NOME -->
+          <mat-form-field appearance="standard" class="col-md-8">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="Nome" formControlName="nome" autocomplete="off">
+            <mat-error *ngIf="hasError('nome')"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('nome')}} </mat-error>
+          </mat-form-field>
+
+          <!-- CAMPO DE CPF -->
+          <mat-form-field appearance="standard" class="col-md-2 ">
+            <mat-label>CPF</mat-label>
+            <input matInput placeholder="000.000.000-00" formControlName="id_cpf"  mask="000.000.000-00" autocomplete="off">
+            <mat-error *ngIf="form.controls.id_cpf.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('id_cpf')}}</mat-error>
+          </mat-form-field>
+
+          <!-- CAMPO DE TELEFONE -->
+          <mat-form-field appearance="standard" class="col-md-2">
+            <mat-label>Telefone</mat-label>
+            <input matInput placeholder="(00)9 0000-0000" formControlName="telefone" mask="(00)0 0000-0000" autocomplete="off">
+            <mat-error *ngIf="form.controls.telefone.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('telefone')}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <!-- CAMPO DE USUARIO -->
+          <mat-form-field appearance="standard" class="col-md-4">
+            <mat-label>Nome de usuário</mat-label>
+            <input matInput placeholder="portaria.usuario" formControlName="usuario" autocomplete="off">
+            <mat-error *ngIf="hasError('usuario')"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('usuario')}} </mat-error>
+          </mat-form-field>
+          <!-- CAMPO DE EMAIL -->
+          <mat-form-field appearance="standard" class="col-md-3">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="pat@example.com" formControlName="email" autocomplete="off" >
+            <mat-error *ngIf="form.controls.email.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('email')}}</mat-error>
+          </mat-form-field>
+
+          <!-- CAMPO DE TIPO USUARIO -->
+          <mat-form-field appearance="standard" class="col-md-2">
+            <mat-label>Tipo Usuário</mat-label>
+            <mat-select formControlName="id_tipo_usuario">
+              <mat-option value="administrador">ADMINISTRADOR</mat-option>
+              <mat-option value="gerente">GERENTE</mat-option>
+              <mat-option value="usuario">USUÀRIO</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.id_tipo_usuario.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('id_tipo_usuario')}}</mat-error>
+
+          </mat-form-field>
+          <!-- CAMPO DE SEDE -->
+          <mat-form-field appearance="standard" class="col-md-3">
+            <mat-label>Sede</mat-label>
+            <mat-select formControlName="id_sede">
+              <mat-option value="administrador">ADMINISTRADOR</mat-option>
+              <mat-option value="gerente">GERENTE</mat-option>
+              <mat-option value="usuario">USUÀRIO</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.id_sede.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('id_sede')}}</mat-error>
+
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+
+          <!-- CAMPO DE hashSenha -->
+          <mat-form-field appearance="standard" class="col-md-4 ">
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="*******" formControlName="hashSenha" autocomplete="off">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form.controls.hashSenha.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('hashSenha')}}</mat-error>
+
+          </mat-form-field>
+        </div>
+        <button mat-raised-button type="submit" (click)="onSubmit()" color="primary">Salvar</button>
+        <button mat-raised-button type="button" (click)="form.reset()">Resetar</button>
+
+      </form>
+    </div>
+  </div>
+</div>

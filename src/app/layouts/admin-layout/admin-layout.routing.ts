@@ -1,3 +1,4 @@
+import { CadastroUsuariosComponent } from './../../usuarios/cadastro-usuarios/cadastro-usuarios.component';
 import { VisitanteResolverGuard } from './../../guards/visitante-resolver.guard';
 import { AdminGuard } from './../../guards/admin.guard';
 import { UserGuard } from './../../guards/user.guard';
@@ -24,11 +25,13 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'visitantes/cadastro',      component: CadastroVisitante2Component,     canActivate: [AuthGuard],   resolve:{visitante : VisitanteResolverGuard} },
     { path: 'visitantes/cadastro2',     component: CadastroVisitanteComponent,      canActivate: [AuthGuard]},
     { path: 'visitantes/editar/:id',    component: CadastroVisitante2Component,     canActivate: [AuthGuard],   resolve:{visitante : VisitanteResolverGuard}},
-    { path: 'visitas2',                 component: VisitasComponent,               canActivate: [AuthGuard,UserGuard] },
-    { path: 'visitas',                  component: Visitas2Component,                canActivate: [AuthGuard,UserGuard] },
+    { path: 'visitas2',                 component: VisitasComponent,                canActivate: [AuthGuard,UserGuard] },
+    { path: 'visitas',                  component: Visitas2Component,               canActivate: [AuthGuard,UserGuard] },
     { path: 'visitas/cadastro',         component: CadastroVisitaComponent,         canActivate: [AuthGuard] },
     { path: 'visitas/cadastro2',        component: CadastroVisita2Component,        canActivate: [AuthGuard] },
     { path: 'usuarios',                 component: UsuariosComponent,               canActivate: [AuthGuard,AdminGuard] },
+    { path: 'usuarios/cadastro',        component: CadastroUsuariosComponent,       canActivate: [AuthGuard,AdminGuard] },
+    { path: 'usuarios/editar/:id',      component: CadastroUsuariosComponent,       canActivate: [AuthGuard,AdminGuard] },
     // { path: 'login',                component: LoginComponent}
 
 ];
