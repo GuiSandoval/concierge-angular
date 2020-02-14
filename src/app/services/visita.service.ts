@@ -23,6 +23,13 @@ export class VisitaService {
     return this.http.get<Visitas[]>(url);
   }
 /***************************************************************
+******************* PESQUISA DE VISITAS  ***************************
+**************************************************************** */
+getListaVisitasPesq(id_cpf : string ): Observable<Visitas[]>{
+  const url = `${environment.Api_url}/?pesquisaVisita=${id_cpf}`;
+  return this.http.get<Visitas[]>(url).pipe(take(1));
+}
+/***************************************************************
 ******************* LISTA DE LOCAL *****************************
 **************************************************************** */
   getListaLocal(): Observable<Lotacao[]>{

@@ -49,6 +49,11 @@ export class VisitanteService {
     const url = `${environment.Api_url}/?cadastro`;
     return this.http.post<CadVisitante>(url, visitante);
   }
+  //Alterar Visitante
+  updateVisitante(visitante): Observable<CadVisitante> {
+    const url = `${environment.Api_url}/?alterar`;
+    return this.http.post<CadVisitante>(url, visitante).pipe(take(1));
+  }
 
   //Adicionar à Black List 
   addBlacklist(id_cpf): Observable<any> {
@@ -75,7 +80,4 @@ export class VisitanteService {
     const url = `${environment.Api_url}/?cadastro`;
     return this.http.post(url, visitante);
   }
-
-
-
 }
