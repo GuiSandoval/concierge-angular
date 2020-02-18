@@ -21,16 +21,8 @@ export class CadastroUsuariosComponent implements OnInit {
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
   public tipoUser;
-  // tipoUser= [
-  //   {id: "1",nome:"Usuário", desc: "Só realiza cadastro de visitas e Visitantes"},
-  //   {id: "2",nome:"Gerente", },
-  //   {id: "3",nome:"Administrador", }
-  // ];
-  idSede= [
-    {id: "1",nome:"SEDE"},
-    {id: "2",nome:"SAAN"},
-    {id: "3",nome:"NAI"}
-  ];
+  public idSede;
+
   constructor(
     private fb: FormBuilder,
     private usuarioService : UsuarioService) { }
@@ -47,6 +39,7 @@ export class CadastroUsuariosComponent implements OnInit {
       hashSenha:        [null, [Validators.required, Validators.minLength(11), Validators.maxLength(50)]],
     })
     this.getTipoUser();
+    this.getSede();
   }
 
   onSubmit(){
@@ -85,7 +78,12 @@ export class CadastroUsuariosComponent implements OnInit {
     return this.usuarioService.getListaTipoUser()
       .subscribe(resp => {
           this.tipoUser= resp;
-          console.log(this.tipoUser);
       });
+  }
+  getSede(){
+    return this.usuarioService.getListaSede()
+      .subscribe(resp => {
+        this.idSede = resp;
+      })
   }
 }

@@ -72,8 +72,8 @@
           <div class="col-md-12">
             <label id="example-radio-group-label">Sede Atuante: </label>
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_sede">
-              <mat-radio-button class="example-radio-button" *ngFor="let seasonn of idSede" [value]="seasonn.id">
-                {{seasonn.nome}}
+              <mat-radio-button class="example-radio-button" *ngFor="let seasonn of idSede" [value]="seasonn.id_sede">
+                {{seasonn.desc_sede}}
               </mat-radio-button>
             </mat-radio-group>
           </div>

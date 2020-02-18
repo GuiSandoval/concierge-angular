@@ -20,6 +20,10 @@ export class UsuarioService {
     const url = `${environment.Api_url}/?pesquisaTipoUser`;
     return this.http.get<any[]>(url);
   }
+  getListaSede(): Observable<any[]>{
+    const url = `${environment.Api_url}/?pesquisaSede`;
+    return this.http.get<any[]>(url);
+  }
   verificaUsuario(usuario: string){
     const url = `${environment.Api_url}/?pesquisaUsuario=${usuario}`;
     return this.http.get<Usuarios>(url)
