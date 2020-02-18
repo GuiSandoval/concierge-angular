@@ -62,8 +62,8 @@
           <div class="col-md-12">
             <label id="example-radio-group-label">Tipo de usuário: </label>
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_tipo_usuario">
-              <mat-radio-button class="example-radio-button text-dark" *ngFor="let season of tipoUser" [value]="season.id" >
-                {{season.nome}}
+              <mat-radio-button class="example-radio-button text-dark" *ngFor="let season of tipoUser" [value]="season.id_tipo_usuario" >
+                {{season.desc_tipo_usuario}}
               </mat-radio-button>
             </mat-radio-group>
           </div>

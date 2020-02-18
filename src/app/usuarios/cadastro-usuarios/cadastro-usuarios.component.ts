@@ -20,12 +20,12 @@ export class CadastroUsuariosComponent implements OnInit {
 
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
-
-  tipoUser= [
-    {id: "1",nome:"Usuário", desc: "Só realiza cadastro de visitas e Visitantes"},
-    {id: "2",nome:"Gerente", },
-    {id: "3",nome:"Administrador", }
-  ];
+  public tipoUser;
+  // tipoUser= [
+  //   {id: "1",nome:"Usuário", desc: "Só realiza cadastro de visitas e Visitantes"},
+  //   {id: "2",nome:"Gerente", },
+  //   {id: "3",nome:"Administrador", }
+  // ];
   idSede= [
     {id: "1",nome:"SEDE"},
     {id: "2",nome:"SAAN"},
@@ -46,6 +46,7 @@ export class CadastroUsuariosComponent implements OnInit {
       id_sede:          [null, [Validators.required]],
       hashSenha:        [null, [Validators.required, Validators.minLength(11), Validators.maxLength(50)]],
     })
+    this.getTipoUser();
   }
 
   onSubmit(){
@@ -79,5 +80,12 @@ export class CadastroUsuariosComponent implements OnInit {
     .pipe(
       map(userExiste => userExiste ? {userInvalido : true} : null)
     );
+  }
+  getTipoUser(){
+    return this.usuarioService.getListaTipoUser()
+      .subscribe(resp => {
+          this.tipoUser= resp;
+          console.log(this.tipoUser);
+      });
   }
 }
