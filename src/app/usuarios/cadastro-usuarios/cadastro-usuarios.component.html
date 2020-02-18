@@ -16,6 +16,8 @@
           <mat-form-field appearance="standard" class="col-md-2 ">
             <mat-label>CPF</mat-label>
             <input matInput placeholder="000.000.000-00" formControlName="id_cpf"  mask="000.000.000-00" autocomplete="off">
+            <mat-hint *ngIf="form.controls.id_cpf.pending" class="text-warning"> <i class="fas fa-circle-notch fa-spin text-warning"></i><strong> Verificando CPF</strong></mat-hint>
+            <mat-hint *ngIf="form.controls.id_cpf.valid"   class="text-success"> <i class="fas fa-check-circle text-success"></i><strong> O CPF pode ser usado</strong></mat-hint>
             <mat-error *ngIf="form.controls.id_cpf.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('id_cpf')}}</mat-error>
           </mat-form-field>
 
@@ -30,58 +32,57 @@
           <!-- CAMPO DE USUARIO -->
           <mat-form-field appearance="standard" class="col-md-4">
             <mat-label>Nome de usuário</mat-label>
-            <input matInput placeholder="portaria.usuario" formControlName="usuario" autocomplete="off">
+            <input matInput placeholder="portaria.usuario" formControlName="usuario" autocomplete="off" [errorStateMatcher]="matcher">
+            <mat-hint *ngIf="form.controls.usuario.pending" class="text-warning"> <i class="fas fa-circle-notch fa-spin text-warning"></i><strong> Verificando Usuario</strong></mat-hint>
+            <mat-hint *ngIf="form.controls.usuario.valid"   class="text-success"> <i class="fas fa-check-circle text-success"></i><strong> Nome de usuário pode ser usado</strong></mat-hint>
             <mat-error *ngIf="hasError('usuario')"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('usuario')}} </mat-error>
           </mat-form-field>
-          <!-- CAMPO DE EMAIL -->
-          <mat-form-field appearance="standard" class="col-md-3">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="pat@example.com" formControlName="email" autocomplete="off" >
-            <mat-error *ngIf="form.controls.email.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('email')}}</mat-error>
-          </mat-form-field>
-
-          <!-- CAMPO DE TIPO USUARIO -->
-          <mat-form-field appearance="standard" class="col-md-2">
-            <mat-label>Tipo Usuário</mat-label>
-            <mat-select formControlName="id_tipo_usuario">
-              <mat-option value="administrador">ADMINISTRADOR</mat-option>
-              <mat-option value="gerente">GERENTE</mat-option>
-              <mat-option value="usuario">USUÀRIO</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.controls.id_tipo_usuario.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('id_tipo_usuario')}}</mat-error>
-
-          </mat-form-field>
-          <!-- CAMPO DE SEDE -->
-          <mat-form-field appearance="standard" class="col-md-3">
-            <mat-label>Sede</mat-label>
-            <mat-select formControlName="id_sede">
-              <mat-option value="administrador">ADMINISTRADOR</mat-option>
-              <mat-option value="gerente">GERENTE</mat-option>
-              <mat-option value="usuario">USUÀRIO</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.controls.id_sede.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('id_sede')}}</mat-error>
-
-          </mat-form-field>
-        </div>
-
-        <div class="form-row">
 
           <!-- CAMPO DE hashSenha -->
           <mat-form-field appearance="standard" class="col-md-4 ">
             <mat-label>Senha</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" placeholder="*******" formControlName="hashSenha" autocomplete="off">
+            <input matInput [type]="hide ? 'text' : 'password'" placeholder="*******" formControlName="hashSenha" autocomplete="off">
             <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>
             <mat-error *ngIf="form.controls.hashSenha.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('hashSenha')}}</mat-error>
+          </mat-form-field>
 
+          <!-- CAMPO DE EMAIL -->
+          <mat-form-field appearance="standard" class="col-md-4">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="pat@example.com" formControlName="email" autocomplete="off" >
+            <mat-error *ngIf="form.controls.email.invalid"><i class="fas fa-exclamation-triangle text-warning"></i> {{getErrorMessage('email')}}</mat-error>
           </mat-form-field>
         </div>
-        <button mat-raised-button type="submit" (click)="onSubmit()" color="primary">Salvar</button>
+
+        <div class="form-row">
+          <!-- CAMPO DE TIPO USUARIO -->
+          <div class="col-md-12">
+            <label id="example-radio-group-label">Tipo de usuário: </label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_tipo_usuario">
+              <mat-radio-button class="example-radio-button text-dark" *ngFor="let season of tipoUser" [value]="season.id" >
+                {{season.nome}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <!-- CAMPO DE SEDE -->
+          <div class="col-md-12">
+            <label id="example-radio-group-label">Sede Atuante: </label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_sede">
+              <mat-radio-button class="example-radio-button" *ngFor="let seasonn of idSede" [value]="seasonn.id">
+                {{seasonn.nome}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <button mat-raised-button type="submit" (click)="onSubmit()"  [disabled]="!form.valid" color="primary">Salvar</button>
         <button mat-raised-button type="button" (click)="form.reset()">Resetar</button>
 
       </form>
     </div>
+    <div class="col-md-12"><app-form-debug [form]="form"></app-form-debug></div>
   </div>
 </div>
