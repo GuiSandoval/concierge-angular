@@ -67,4 +67,8 @@ export class UsuarioService {
           catchError(this.handleError('addUsuario',usuario))
       );
   } 
+  deleteUsuario(id_cpf : string): Observable<Usuarios>{
+    const url = `${environment.Api_url}/?deletarUsuario=${id_cpf}`;
+    return this.http.get<Usuarios>(url)
+  }
 }
