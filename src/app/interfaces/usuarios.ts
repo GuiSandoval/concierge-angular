@@ -9,4 +9,7 @@ export interface Usuarios {
     id_sede: number;
     desc_sede: string;
     hashSenha: string;
+    //Para requisições Post
+    status:string;
+    dados: string;
 }

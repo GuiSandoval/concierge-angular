@@ -1,3 +1,5 @@
+import { Location } from '@angular/common';
+import { AlertModalService } from './../../components/alert-modal.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -22,10 +24,13 @@ export class CadastroUsuariosComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   public tipoUser;
   public idSede;
+  spresp: any;
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService : UsuarioService) { }
+    private usuarioService : UsuarioService,
+    private not :AlertModalService,
+    private location : Location) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -45,7 +50,7 @@ export class CadastroUsuariosComponent implements OnInit {
   onSubmit(){
     console.log(this.form);
     if(this.form.valid){
-      console.log('submit');
+      this.addUsuario();
     }
   }
   // Retorno de Mensagens para errors 
@@ -85,5 +90,17 @@ export class CadastroUsuariosComponent implements OnInit {
       .subscribe(resp => {
         this.idSede = resp;
       })
+  }
+  addUsuario(){
+    this.usuarioService.addUsuario(this.form.value)
+    .subscribe(resp => {
+      // return this.spresp.push(resp);
+      if(resp.status === 'success'){
+        this.not.showNotification(resp.dados,2);
+        this.location.back();
+      }else{
+        this.not.showNotification(resp.dados,4);
+      }
+    });
   }
 }
