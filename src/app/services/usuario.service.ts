@@ -1,4 +1,4 @@
-import { delay, map, tap, catchError } from 'rxjs/operators';
+import { delay, map, tap, catchError, take } from 'rxjs/operators';
 import { Usuarios } from './../interfaces/usuarios';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -70,5 +70,13 @@ export class UsuarioService {
   deleteUsuario(id_cpf : string): Observable<Usuarios>{
     const url = `${environment.Api_url}/?deletarUsuario=${id_cpf}`;
     return this.http.get<Usuarios>(url)
+  }
+  getUsuario(id_cpf : string): Observable <Usuarios>{
+    const url = `${environment.Api_url}/?pesquisaUsuario=${id_cpf}`;
+    return this.http.get<Usuarios>(url).pipe(take(1));
+  }
+  alterUsuario(paramsUser): Observable<any>{
+    const url = `${environment.Api_url}/?alterarUsuario`;
+    return this.http.post(url, paramsUser);
   }
 }

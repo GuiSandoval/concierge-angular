@@ -1,5 +1,7 @@
+import { Location } from '@angular/common';
+import { AlertModalService } from './../components/alert-modal.service';
 import { Visitas } from 'app/interfaces/visitas';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { BlackList } from './../interfaces/black-list';
 import { FilterPipe } from './../filter.pipe';
@@ -9,6 +11,7 @@ import { VisitanteService } from 'app/services/visitante.service';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { VisitaService } from 'app/services/visita.service';
+import { delay, filter } from 'rxjs/operators';
 
 /**
  * @title Table with expandable rows
@@ -46,7 +49,9 @@ export class VisitantesComponent implements OnInit {
     private authService: AuthService,
     private router : Router,
     private route: ActivatedRoute,
-    private visitaService: VisitaService) { }
+    private visitaService: VisitaService,
+    private not : AlertModalService,
+    private locattion : Location) { }
 
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -106,13 +111,14 @@ export class VisitantesComponent implements OnInit {
 
     if (id_black_list == 1) {
       this.visitanteServ.removeBlackList(id_cpf).subscribe(response => {
-        // console.log(response);
+        this.not.showNotification(response,2)
       })
+      this.router.navigateByUrl('visitantes')
     } else {
       this.visitanteServ.addBlacklist(id_cpf).subscribe(response => {
-        // console.log(response);
-        // console.log(response.status);
+        this.not.showNotification(response,2)
       });
+      this.router.navigateByUrl('visitantes');
     }
 
   }

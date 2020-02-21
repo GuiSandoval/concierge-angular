@@ -38,11 +38,14 @@ export class UsuariosComponent implements OnInit {
         .subscribe(resp => {
           if(resp.status === 'success'){
             this.not.showNotification(resp.dados,3);
-            this.router.navigate(['usuarios']);
+            // setTimeout(() => {
+              this.router.navigate(['usuarios']);
+            // }, 2000);
           }
-          // window.location.reload();
-          // this.not.showNotification(resp.)
-        })
+        });
+  }
+  onEdit(id_cpf){
+    this.router.navigate(['usuarios/editar/', id_cpf]);
   }
 
 }

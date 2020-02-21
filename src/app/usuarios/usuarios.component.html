@@ -35,7 +35,7 @@
                     <td>{{usuario.usuario}}</td>
                     <td>{{usuario.desc_tipo_usuario}}</td>
                     <td>{{usuario.email}}</td>
-                    <td>{{usuario.telefone}}</td>
+                    <td>{{usuario.telefone | mask:'(00)0 0000-0000'}}</td>
                     <td>{{usuario.desc_sede}}</td>
                     <td class="text-center">
                         <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,10 +43,30 @@
                         </a>
                       
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#"><i class="fas fa-edit"></i>&nbsp;Editar</a>
-                          <a class="dropdown-item text-danger hover-delete" href="#" (click)="deleteUser(usuario.id_cpf)"><i class="fas fa-trash-alt"></i>&nbsp;Deletar</a>
+                          <a class="dropdown-item" [routerLink]="" (click)="onEdit(usuario.id_cpf)"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+                          <!-- <a class="dropdown-item text-danger hover-delete" [routerLink]="" (click)="deleteUser(usuario.id_cpf)"><i class="fas fa-trash-alt"></i>&nbsp;Deletar</a> -->
+                          <a class="dropdown-item text-danger hover-delete" [routerLink]="" data-toggle="modal" data-target="#confirm-delete"><i class="fas fa-trash-alt"></i>&nbsp;Deletar</a>
                         </div>
                     </td>
+                    <!-- Delete Modal-->
+                    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-content" >
+                              <div class="modal-header">
+                                <h4 class="modal-title float-left text-danger" id="myModalLabel">CONFIRMAR EXCLUSÃO</h4>
+                                <button type="button" class="close float-right" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <p>Você está prestes à deletar um usuário, este procedimento é <b>IRREVERSÍVEL</b></p>
+                                <p>Você tem certeza que quer deletar <b>{{usuario.nome}}</b> do sistema?</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button mat-raised-button data-dismiss="modal">Cancelar</button>
+                                <button mat-raised-button color="warn" (click)="deleteUser(usuario.id_cpf)" data-dismiss="modal">Excluir</button>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
                   </tr>
                 </tbody>
               </table>
