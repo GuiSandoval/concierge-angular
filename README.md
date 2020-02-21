@@ -6,7 +6,7 @@
         -Jquery
 ### Arquitetura do Sistema
 
-
+```
 material-dashboard-angular
 ├── CHANGELOG.md
 ├── LICENSE.md
@@ -125,3 +125,4 @@ material-dashboard-angular
 ├── tsconfig.json
 ├── tslint.json
 └── typings
+```
