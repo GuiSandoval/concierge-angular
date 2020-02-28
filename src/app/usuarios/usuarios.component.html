@@ -30,7 +30,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let usuario of usuarios" >
+                  <tr *ngFor="let usuario of usuarios; let i = index" >
                     <td>{{usuario.nome}}</td>
                     <td>{{usuario.usuario}}</td>
                     <td>{{usuario.desc_tipo_usuario}}</td>
@@ -45,11 +45,11 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item" [routerLink]="" (click)="onEdit(usuario.id_cpf)"><i class="fas fa-edit"></i>&nbsp;Editar</a>
                           <!-- <a class="dropdown-item text-danger hover-delete" [routerLink]="" (click)="deleteUser(usuario.id_cpf)"><i class="fas fa-trash-alt"></i>&nbsp;Deletar</a> -->
-                          <a class="dropdown-item text-danger hover-delete" [routerLink]="" data-toggle="modal" data-target="#confirm-delete"><i class="fas fa-trash-alt"></i>&nbsp;Deletar</a>
+                          <a class="dropdown-item text-danger hover-delete" [routerLink]="" data-toggle="modal" attr.data-target="#toggleDemo-{{i}}"><i class="fas fa-trash-alt"></i>&nbsp;Deletar</a>
                         </div>
                     </td>
                     <!-- Delete Modal-->
-                    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="toggleDemo-{{i}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                           <div class="modal-content" >
                               <div class="modal-header">
