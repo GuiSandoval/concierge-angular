@@ -1,3 +1,4 @@
+import { AlertModalService } from './../../components/alert-modal.service';
 import { Location } from '@angular/common';
 import { Response, Http } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
@@ -32,7 +33,8 @@ export class CadastroVisita2Component implements OnInit {
     private visitaService: VisitaService,
     private formBuilder: FormBuilder,
     private location: Location,
-    private http: Http) { }
+    private http: Http,
+    private not : AlertModalService) { }
 
   ngOnInit() {
     this.form1 = this.formBuilder.group({
@@ -64,14 +66,12 @@ export class CadastroVisita2Component implements OnInit {
       // console.log('submit');
       this.visitaService.addVisita(this.formFinal.value).subscribe(
         success => {
-          console.log(success)
+          // console.log(success)
+          this.not.showNotification(success,2);
           this.location.back();
 
         },
         error => console.log(error),
-        () => {
-          console.log('Request Completo!');
-        }
       );
 
 
