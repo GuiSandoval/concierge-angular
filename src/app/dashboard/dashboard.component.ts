@@ -1,6 +1,7 @@
+import { AuthService } from './../services/auth.service';
 import { BlackList } from './../interfaces/black-list';
 import { VisitanteService } from 'app/services/visitante.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import * as Chartist from 'chartist';
 import { Visitantes } from 'app/interfaces/visitantes';
 import { VisitaService } from 'app/services/visita.service';
@@ -18,8 +19,14 @@ export class DashboardComponent implements OnInit {
   public teste;
   public nVisita;
   public nVisitaBl;
+  public idTipoUsuario = this.authService.getTipoUser();
+  animal: string;
+  name: string;
+
   constructor(private visitanteService: VisitanteService,
-    private visitaService: VisitaService) { }
+    private visitaService: VisitaService,
+    private authService : AuthService,) { }
+    
   getListaBlackList() {
     this.visitanteService.getBlackList()
       .subscribe(
@@ -191,3 +198,13 @@ export class DashboardComponent implements OnInit {
   }
 
 }
+
+
+$(document).on('show.bs.modal', '.modal', function (event) {
+  const zIndex = 1045 + (10 * $('.modal:visible').length);
+  // this zIndex can be assigned to the time-picker
+  $(this).css('z-index', zIndex);
+  setTimeout(function () {
+    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+  }, 0);
+});
