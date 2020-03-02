@@ -65,6 +65,7 @@ import { CadastroVisitante2Component } from 'app/visitantes/cadastro-visitante2/
 import { NgxMaskModule } from 'ngx-mask';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { CadastroUsuariosComponent } from 'app/usuarios/cadastro-usuarios/cadastro-usuarios.component';
+import { AthAddBlackListComponent } from 'app/helpers/ath-add-black-list/ath-add-black-list.component';
 
 
 // import { LoginComponent } from 'app/login/login.component';
@@ -152,6 +153,7 @@ export const options2: Partial<any> | (() => Partial<any>) = undefined;
     CdkDetailRowDirective,
     CadastroVisitante2Component,
     CadastroUsuariosComponent,
+    AthAddBlackListComponent,
   ],
   entryComponents: [Visitas2Component],
   bootstrap: [Visitas2Component],
