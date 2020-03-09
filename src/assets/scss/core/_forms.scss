@@ -306,9 +306,9 @@ select {
 }
 
 textarea{
-    height: auto !important;
-    resize: none;
-    line-height: $bmd-line-height !important;
+    // height: auto !important;
+    resize: vertical;
+    // line-height: $bmd-line-height !important;
 }
 
 .form-group input[type=file] {
