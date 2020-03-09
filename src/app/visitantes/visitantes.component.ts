@@ -12,6 +12,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { VisitaService } from 'app/services/visita.service';
 import { delay, filter } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * @title Table with expandable rows
@@ -33,6 +34,7 @@ import { delay, filter } from 'rxjs/operators';
 export class VisitantesComponent implements OnInit {
   displayedColumns: string[] = ['id_cpf', 'nome', 'identidade','matricula'];
   dataSource: MatTableDataSource<Visitantes>;
+  formAddBL: FormGroup
   public visitantes: Visitantes[];
   public visitas: Visitas[];
   public teste3;
@@ -51,13 +53,20 @@ export class VisitantesComponent implements OnInit {
     private route: ActivatedRoute,
     private visitaService: VisitaService,
     private not : AlertModalService,
-    private locattion : Location) { }
+    private locattion : Location,
+    private fb: FormBuilder,
+    ) { }
 
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
   ngOnInit() {
     this.getListaVisitantes();
     this.getListaBlackList();
+    this.formAddBL = this.fb.group({
+      id_cpf : [null, [Validators.required]],
+      nome : [null, [Validators.required]],
+      observacoes : [null, [Validators.required]]
+    });
   }
   onEdit(id){
     // console.log(id);
@@ -105,7 +114,7 @@ export class VisitantesComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  addBlackList(id_cpf, id_black_list) {
+  verBlackList(id_cpf, id_black_list,nome) {
     // console.log(id_cpf);
     // console.log(id_black_list);
 
@@ -114,11 +123,18 @@ export class VisitantesComponent implements OnInit {
         this.not.showNotification(response,2)
       })
       this.router.navigateByUrl('visitantes')
+      // this.showModal();
     } else {
-      this.visitanteServ.addBlacklist(id_cpf).subscribe(response => {
-        this.not.showNotification(response,2)
-      });
-      this.router.navigateByUrl('visitantes');
+      this.formAddBL.controls.id_cpf.setValue(id_cpf);
+      this.formAddBL.controls.nome.setValue(nome);
+      this.formAddBL.controls.id_cpf.disable();
+      this.formAddBL.controls.nome.disable();
+      this.showModal();
+
+      // this.visitanteServ.addBlacklist(id_cpf).subscribe(response => {
+      //   this.not.showNotification(response,2)
+      // });
+      // this.router.navigateByUrl('visitantes');
     }
 
   }
@@ -126,4 +142,17 @@ export class VisitantesComponent implements OnInit {
     return this.idTipoUsuario == 3;
   }
 
+  showModal(){
+   (<any>$('#modalAddBL')).modal('show');
+  }
+  addBlackList(){
+    (<any>$('#modalAddBL')).modal('hide');
+    let query = this.formAddBL.getRawValue();
+    // console.log(query);
+      this.visitanteServ.addBlacklist(query).subscribe(response => {
+        this.not.showNotification(response,2)
+      });
+      this.router.navigateByUrl('visitantes');
+  }
+  
 }

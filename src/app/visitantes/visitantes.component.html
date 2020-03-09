@@ -93,7 +93,7 @@
                   <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
                     <li class="dropdown-header">Dropdown header</li>
                     <ng-template [ngIf]="idTipoUsuario == 3 ">
-                      <li><a [routerLink]="" (click)='addBlackList( element.id_cpf , element.id_black_list)'
+                      <li><a [routerLink]="" (click)='verBlackList(element.id_cpf ,element.id_black_list,element.nome)'
                           class="text-danger">Adicionar/Remover Black List</a></li>
                     </ng-template>
                   </ul>
@@ -118,8 +118,7 @@
 </div>
 
 <!-- MODAL DOS REGISTROS DA BLACK LIST -->
-<div class="modal fade bd-example-modal-xl" id="modalBL" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="modalBL" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >  
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -138,6 +137,7 @@
                 <th>NOME</th>
                 <th>DATA ENTRADA</th>
                 <th>DATA SAIDA</th>
+                <th></th>
               </thead>
               <tbody>
                 <ng-container *ngFor="let bl of blackList | slice:1; let i = index">
@@ -147,6 +147,7 @@
                     <td>{{bl.nome}}</td>
                     <td>{{bl.data_entrada}}</td>
                     <td [ngClass]="{'text-danger': bl.data_saida == null}">{{bl.data_saida}}</td>
+                    <td><button mat-button data-toggle="modal" attr.data-target="#infoBl-{{i}}">INFO</button></td>
                   </tr>
                 </ng-container>
               </tbody>
@@ -156,6 +157,87 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INFO DA BLACK LIST -->
+<ng-container *ngFor="let bl of blackList | slice:1; let i = index">
+<div class="modal" id="infoBl-{{i}}" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Info da Black List</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div><div class="container"></div>
+      <div class="modal-body">
+        <form class="form-row">
+          <div class="col-md-2">
+            <label for="id_cpf{{i}}">CPF</label>
+            <input id="id_cpf{{i}}" class="form-control p-2 rounded" type="text" [value]="bl.id_cpf_visitante | mask:'000.000.000-00'" readonly>
+          </div>
+          <div class="col-md-6">
+            <label for="nome{{i}}">NOME</label>
+            <input id="nome{{i}}" class="form-control p-2 rounded" type="text" [value]="bl.nome" readonly>
+          </div>
+          <div class="col-md-2">
+            <label for="dtEntrada{{i}}">Data De Entrada</label>
+            <input id="dtEntrada{{i}}" class="form-control p-2 rounded" type="text" [value]="bl.data_entrada" readonly>
+          </div>
+          <div class="col-md-2">
+            <label for="dtSaida{{i}}">Data De Saída</label>
+            <input id="dtSaida{{i}}" class="form-control p-2 rounded" type="text" [value]="bl.data_saida" readonly>
+          </div>
+        </form>
+        <hr>
+        <div class="descriptionBl">
+          <h3>Descrição</h3>
+          <p class="text-justify">
+            {{bl.observacoes}}
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Fechar</a>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>
+
+
+<!-- Form add Black List-->
+<div class="modal fade" id="modalAddBL" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Descrição da Adição do Black List</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <form class="example-full-width"[formGroup]="formAddBL">
+          <div class="form-row">
+            <mat-form-field class="example-full-width col-md-2">
+              <mat-label>CPF</mat-label>
+              <input matInput formControlName="id_cpf">
+            </mat-form-field>
+            <mat-form-field class="example-full-width col-md-10">
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="nome">
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="example-full-width col-md-12">
+                <mat-label>Motivo</mat-label>
+                <textarea matInput formControlName="observacoes" ></textarea>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary" [disabled]= "!formAddBL.valid" (click)="addBlackList()">Salvar</button>
       </div>
     </div>
   </div>

@@ -56,9 +56,11 @@ export class VisitanteService {
   }
 
   //Adicionar à Black List 
-  addBlacklist(id_cpf): Observable<any> {
-    const url = `${environment.Api_url}/?blacklist=${id_cpf}`;
-    return this.http.get<any>(url);
+  addBlacklist(query): Observable<any> {
+    // const url = `${environment.Api_url}/?blacklist=${id_cpf}`;
+    // return this.http.get<any>(url);
+    const url = `${environment.Api_url}/?blacklist`;
+    return this.http.post<any>(url,query);
   }
   //Remover Black List
   removeBlackList(id_cpf) {
