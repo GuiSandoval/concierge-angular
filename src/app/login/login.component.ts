@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
           // console.log(response.message);
         }
       }, error => {
+        this.not.showNotification(error, 4);
         console.error(error);
       });
     }
