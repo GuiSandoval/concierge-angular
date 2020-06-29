@@ -4,7 +4,7 @@ import { VisitanteService } from 'app/services/visitante.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import * as Chartist from 'chartist';
 import { Visitantes } from 'app/interfaces/visitantes';
-import { VisitaService } from 'app/services/visita.service';
+import { VisitaService, relVisita } from 'app/services/visita.service';
 import { Visitas } from 'app/interfaces/visitas';
 
 @Component({
@@ -19,6 +19,8 @@ export class DashboardComponent implements OnInit {
   public teste;
   public nVisita;
   public nVisitaBl;
+  public nRelVisita;
+  public nDRelVisita;
   public idTipoUsuario = this.authService.getTipoUser();
   animal: string;
   name: string;
@@ -55,11 +57,56 @@ export class DashboardComponent implements OnInit {
     // }, ()=> {
     //   this.errorMsgComponent.setErro("Falha ao listar Visitantes!")})
   }
+  getRelVisita(tipoRel,id,tipo_grafico){
+    this.visitaService.getRelVisita(tipoRel)
+    .subscribe((relVisitas: relVisita) => {
+      this.nRelVisita = relVisitas.qtdRel;
+      this.nDRelVisita = relVisitas.meses;
+      console.log(this.nRelVisita);
+      this.graficoLinear(this.nDRelVisita,this.nRelVisita,id,tipo_grafico);
+    });
+  }
+  graficoLinear(rotulo,valores,id,tipo_grafico){
+
+    /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+
+    const dataCompletedTasksChart: any = {
+      labels: rotulo,
+      series: [valores]
+    };
+    
+    const optionsCompletedTasksChart: any = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: Math.max.apply(null, valores) + 5,
+      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
+    }
+    var responsiveOptions: any[] = [
+      ['screen and (max-width: 640px)', {
+        seriesBarDistance: 5,
+        axisX: {
+          labelInterpolationFnc: function (value) {
+            return value[0];
+          }
+        }
+      }]
+    ];
+    var completedTasksChart = new Chartist.Line(id, dataCompletedTasksChart, optionsCompletedTasksChart,responsiveOptions);
+
+    // start animation for the Completed Tasks Chart - Line Chart
+    tipo_grafico==0 ? this.startAnimationForLineChart(completedTasksChart) : this.startAnimationForBarChart(completedTasksChart);
+
+    // this.startAnimationForLineChart(completedTasksChart);
+
+  }
+
   startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
     seq = 0;
-    delays = 80;
-    durations = 500;
+    delays = 200;
+    durations = 1000;
 
     chart.on('draw', function (data) {
       if (data.type === 'line' || data.type === 'area') {
@@ -112,57 +159,11 @@ export class DashboardComponent implements OnInit {
     seq2 = 0;
   };
   ngOnInit() {
-    this.nVisita;
     this.getListaBlackList();
     this.getListaVisita();
     this.getListaVisitantes();
-    /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-
-    const dataDailySalesChart: any = {
-      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'r'],
-      series: [
-        [40, 17, 7, 17, 23, 18, 38,0]
-      ]
-    };
-
-    const optionsDailySalesChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: 60, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
-    }
-
-    var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-    this.startAnimationForLineChart(dailySalesChart);
-
-
-    /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-    const dataCompletedTasksChart: any = {
-      labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-      series: [
-        [230, 750, 450, 300, 280, 240, 200, 190]
-      ]
-    };
-
-    const optionsCompletedTasksChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
-    }
-
-    var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-    // start animation for the Completed Tasks Chart - Line Chart
-    this.startAnimationForLineChart(completedTasksChart);
-
-
+    this.getRelVisita('0','#dailySalesChart',0);
+    this.getRelVisita('1','#completedTasksChart',1);
 
     /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
