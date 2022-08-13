@@ -33,7 +33,7 @@
       <ng-container matColumnDef="id_cpf">
         <mat-header-cell *matHeaderCellDef mat-sort-header> CPF </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <i class='fas' [ngClass]="{'fa-address-card': element.matricula,'fa-user' : !element.matricula,'text-danger': element.id_black_list==1}"></i>{{ element.id_cpf | mask: ' 000.000.000-00'}}
+          <i class='fas' [ngClass]="{'fa-address-card': element.matricula,'fa-user' : !element.matricula,'text-danger': element.id_black_list==1}"></i><span class="blurPidi">{{ element.id_cpf | mask: ' 000.000.000-00'}}</span>
         </mat-cell>
       </ng-container>
 

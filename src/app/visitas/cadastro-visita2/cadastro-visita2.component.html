@@ -20,7 +20,7 @@
           <mat-autocomplete #auto2="matAutocomplete">
             <ng-container *ngFor="let visitante of visitantes| filter:term3 | slice:0:20;  let i = index;">
               <mat-option [value]="visitante.nome">
-                {{visitante.id_cpf | mask: '000.000.000-00'}} - {{visitante.nome}}
+                <span class="blurPidi">{{visitante.id_cpf | mask: '000.000.000-00'}} </span> - {{visitante.nome}}
                 <!-- <input type="hidden" [(ngModel)]="teste444" value="ola"> -->
               </mat-option>
             </ng-container>

@@ -11,7 +11,7 @@
 			<!-- Id_cpf Column -->
 			<ng-container matColumnDef="id_cpf">
 				<mat-header-cell *matHeaderCellDef mat-sort-header> CPF VISITANTE </mat-header-cell>
-				<mat-cell *matCellDef="let element">{{element.id_cpf | mask: '000.000.000-00'}}</mat-cell>
+				<mat-cell *matCellDef="let element"><span class="blurPidi">{{element.id_cpf | mask: '000.000.000-00'}}</span></mat-cell>
 			</ng-container>
 
 			<!-- nomeVisit Column -->
@@ -35,7 +35,7 @@
 			<!-- cpfServ Column -->
 			<ng-container matColumnDef="cpfServ">
 				<mat-header-cell *matHeaderCellDef mat-sort-header> CPF SERVIDOR </mat-header-cell>
-				<mat-cell *matCellDef="let element">{{element.id_cpf_visitado | mask: '000.000.000-00'}}</mat-cell>
+				<mat-cell *matCellDef="let element"> <span class="blurPidi">{{element.id_cpf_visitado | mask: '000.000.000-00'}}</span></mat-cell>
 			</ng-container>
 
 			<!-- dataHora Column -->
